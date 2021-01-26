@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Categories on AlexNide!</title>
+    <title>Categories on AlexNide</title>
     <link>https://embraceuu.github.io/categories/</link>
-    <description>Recent content in Categories on AlexNide!</description>
+    <description>Recent content in Categories on AlexNide</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language><atom:link href="https://embraceuu.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
   </channel>

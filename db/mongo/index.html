@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.79.1" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Mongo &middot; AlexNide</title>
+  <meta name="description" content="Mongo日常笔记, 包括了一些常用的命令和语法. " />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://embraceuu.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://embraceuu.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://embraceuu.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://embraceuu.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class="theme-base-08 ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://embraceuu.github.io/"><h1>AlexNide</h1></a>
+      <p class="lead">
+       这里是Nide的个人博客 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://embraceuu.github.io/">Home</a> </li>
+        
+      </ul>
+    </nav>
+
+    <p>&copy; 2021. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>Mongo</h1>
+  <time datetime=2019-04-05T00:00:00Z class="post-date">Fri, Apr 5, 2019</time>
+  <h2 id="mongodb">mongodb</h2>
+<h4 id="数据自动过期">数据自动过期</h4>
+<blockquote>
+<p>使用 pymongo 和 mongo index</p>
+</blockquote>
+<pre><code># 在python中insert时带上expire_time
+doc = {
+    '_id': ObjectId(),
+    ...
+    'expire_time': datetime.datetime.utcnow()
+}
+
+# 在collection中添加 index, 并带有过期属性, 单位为s
+db.collection.createIndex({&quot;expire_time&quot;: 1}, {expireAfterSeconds: NumberInt(&quot;691200&quot;)});
+</code></pre><p>mongo 会有一个专门的进程扫描带有expire_time字段的数据, 通过对比里面的时间, 判断数据是否需要清除.</p>
+<h4 id="更改某字段为另外一个字段的值">更改某字段为另外一个字段的值</h4>
+<pre><code>db.info.find().forEach(
+  function(item){                 
+      db.info.update({&quot;_id&quot;:item._id},{&quot;$set&quot;: {&quot;symbol_dsp&quot;:item.symbol}}) 
+    }
+)
+</code></pre><h4 id="更改某字段-对字段做一些处理">更改某字段, 对字段做一些处理</h4>
+<pre><code>db.symbol_info.find({'exchange': 'cococoin', 'symbol_type': 1}).forEach(
+  function(item){  
+      item.rest_symbol = item.rest_symbol.replace(&quot;661.&quot;, &quot;&quot;)
+      db.symbol_info.update({&quot;_id&quot;:item._id},{&quot;$set&quot;: {&quot;rest_symbol&quot;:item.rest_symbol}}) 
+    }
+)
+</code></pre><h4 id="跨表修改字段的值">跨表修改字段的值</h4>
+<pre><code>db.coin_mapping.find({&quot;status&quot;:1}).forEach(
+    function(x){
+        db.info.update({'_id': x.mars_coin_id}, {$set: {'qkl123_id': NumberInt(x.qkl123_coin_id)}})
+    }
+)
+</code></pre><h4 id="查重">查重</h4>
+<pre><code>db.duplicate_coin.aggregate([
+    { $group: { _id : '$symbol', count: { $sum : 1 } } },
+    { $match: { count: { $gt : 1} } }
+])
+
+## 多字段批量查询
+db.symbol_info.aggregate([
+    { $group: { _id : {symbol: '$symbol', ex: '$exchange', status: '$status'}, count: { $sum : 1 } } },
+    { $match: { count: { $gt : 1} } }
+])
+</code></pre><h4 id="字段类型">字段类型</h4>
+<pre><code>## 查看字段类型
+db.symbol_info.find({'status': {$type: 1}}).count()   
+
+## 批量修改字段类型
+db.symbol_info.find({&quot;status&quot;:{$type:1}}).forEach(function(x){x.status=NumberInt(x.status);db.symbol_info.save(x)})
+</code></pre><h4 id="事务">事务</h4>
+<p><a href="https://www.jianshu.com/p/d838a5905303">https://www.jianshu.com/p/d838a5905303</a></p>
+<h4 id="索引">索引</h4>
+<pre><code>db.symbol_info.createIndex({'exchange': 1, 'symbol': 1}, {unique: true})
+</code></pre>
+</div>
+
+
+    </main>
+
+    
+      
+    
+  </body>
+</html>
