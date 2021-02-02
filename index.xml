@@ -1,29 +1,72 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>AlexNide</title>
-    <link>https://embraceuu.github.io/</link>
-    <description>Recent content on AlexNide</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Fri, 05 Apr 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://embraceuu.github.io/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Mongo</title>
-      <link>https://embraceuu.github.io/db/mongo/</link>
-      <pubDate>Fri, 05 Apr 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://embraceuu.github.io/db/mongo/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Mysql</title>
-      <link>https://embraceuu.github.io/db/mysql/</link>
-      <pubDate>Tue, 05 Mar 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://embraceuu.github.io/db/mysql/</guid>
-      <description></description>
-    </item>
-    
-  </channel>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>EmbraceU</title>
+        <link>https://embraceuu.github.io/</link>
+        <description>达尼的博客</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 29 Jan 2021 09:36:26 &#43;0800</lastBuildDate>
+            <atom:link href="https://embraceuu.github.io/index.xml" rel="self" type="application/rss+xml" />
+        <item>
+    <title>Mongo Note</title>
+    <link>https://embraceuu.github.io/db-mongo-syntax/</link>
+    <pubDate>Fri, 29 Jan 2021 09:36:26 &#43;0800</pubDate>
+    <author>Nide</author>
+    <guid>https://embraceuu.github.io/db-mongo-syntax/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>常用Shell命令</title>
+    <link>https://embraceuu.github.io/linux-shell/</link>
+    <pubDate>Thu, 04 Jul 2019 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>https://embraceuu.github.io/linux-shell/</guid>
+    <description><![CDATA[<p>记录常用的Linux命令以及Shell语法</p>]]></description>
+</item><item>
+    <title>Git常用命令</title>
+    <link>https://embraceuu.github.io/tools-git/</link>
+    <pubDate>Wed, 03 Jul 2019 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>https://embraceuu.github.io/tools-git/</guid>
+    <description><![CDATA[<p>记录Git的常用命令</p>]]></description>
+</item><item>
+    <title>Mysql 相关汇总</title>
+    <link>https://embraceuu.github.io/db-mysql-syntax/</link>
+    <pubDate>Tue, 05 Mar 2019 00:00:00 &#43;0000</pubDate>
+    <author>达尼</author>
+    <guid>https://embraceuu.github.io/db-mysql-syntax/</guid>
+    <description><![CDATA[MySQL日常笔记, 包括了一些常用命令和语法. ]]></description>
+</item><item>
+    <title>记一次Mongo的优化过程</title>
+    <link>https://embraceuu.github.io/db-mongo-explain/</link>
+    <pubDate>Tue, 05 Mar 2019 00:00:00 &#43;0000</pubDate>
+    <author>alex</author>
+    <guid>https://embraceuu.github.io/db-mongo-explain/</guid>
+    <description><![CDATA[<p>记录一次Mongo的慢查询分析以及索引优化过程.</p>]]></description>
+</item><item>
+    <title>记录Log4j的配置范本</title>
+    <link>https://embraceuu.github.io/java-log4j-conf/</link>
+    <pubDate>Mon, 24 Dec 2018 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>https://embraceuu.github.io/java-log4j-conf/</guid>
+    <description><![CDATA[<p>记录Log4j在项目中的配置范本.</p>]]></description>
+</item><item>
+    <title>MySQL Shell 常规命令汇总</title>
+    <link>https://embraceuu.github.io/db-mysql-shell/</link>
+    <pubDate>Wed, 19 Dec 2018 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>https://embraceuu.github.io/db-mysql-shell/</guid>
+    <description><![CDATA[<p>记录一些MySQL在Linux环境中的运维是可能用到的命令.</p>]]></description>
+</item><item>
+    <title>Java 知识点整理</title>
+    <link>https://embraceuu.github.io/java-syntax/</link>
+    <pubDate>Thu, 23 Nov 2017 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>https://embraceuu.github.io/java-syntax/</guid>
+    <description><![CDATA[<p>记录java中常见的知识点</p>]]></description>
+</item><item>
+    <title>问题记录</title>
+    <link>https://embraceuu.github.io/questions-note/</link>
+    <pubDate>Sun, 01 Jan 2017 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>https://embraceuu.github.io/questions-note/</guid>
+    <description><![CDATA[<p>记录平时遇到的问题</p>]]></description>
+</item></channel>
 </rss>

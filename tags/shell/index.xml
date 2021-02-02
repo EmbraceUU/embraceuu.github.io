@@ -1,0 +1,14 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>shell - Tag - EmbraceU</title>
+        <link>https://embraceuu.github.io/tags/shell/</link>
+        <description>shell - Tag - EmbraceU</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 04 Jul 2019 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://embraceuu.github.io/tags/shell/" rel="self" type="application/rss+xml" /><item>
+    <title>常用Shell命令</title>
+    <link>https://embraceuu.github.io/linux-shell/</link>
+    <pubDate>Thu, 04 Jul 2019 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>https://embraceuu.github.io/linux-shell/</guid>
+    <description><![CDATA[<p>记录常用的Linux命令以及Shell语法</p>]]></description>
+</item></channel>
+</rss>

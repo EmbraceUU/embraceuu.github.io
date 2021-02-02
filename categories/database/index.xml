@@ -1,0 +1,35 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>database - Category - EmbraceU</title>
+        <link>https://embraceuu.github.io/categories/database/</link>
+        <description>database - Category - EmbraceU</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 29 Jan 2021 09:36:26 &#43;0800</lastBuildDate><atom:link href="https://embraceuu.github.io/categories/database/" rel="self" type="application/rss+xml" /><item>
+    <title>Mongo Note</title>
+    <link>https://embraceuu.github.io/db-mongo-syntax/</link>
+    <pubDate>Fri, 29 Jan 2021 09:36:26 &#43;0800</pubDate>
+    <author>Nide</author>
+    <guid>https://embraceuu.github.io/db-mongo-syntax/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>Mysql 相关汇总</title>
+    <link>https://embraceuu.github.io/db-mysql-syntax/</link>
+    <pubDate>Tue, 05 Mar 2019 00:00:00 &#43;0000</pubDate>
+    <author>达尼</author>
+    <guid>https://embraceuu.github.io/db-mysql-syntax/</guid>
+    <description><![CDATA[MySQL日常笔记, 包括了一些常用命令和语法. ]]></description>
+</item><item>
+    <title>记一次Mongo的优化过程</title>
+    <link>https://embraceuu.github.io/db-mongo-explain/</link>
+    <pubDate>Tue, 05 Mar 2019 00:00:00 &#43;0000</pubDate>
+    <author>alex</author>
+    <guid>https://embraceuu.github.io/db-mongo-explain/</guid>
+    <description><![CDATA[<p>记录一次Mongo的慢查询分析以及索引优化过程.</p>]]></description>
+</item><item>
+    <title>MySQL Shell 常规命令汇总</title>
+    <link>https://embraceuu.github.io/db-mysql-shell/</link>
+    <pubDate>Wed, 19 Dec 2018 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>https://embraceuu.github.io/db-mysql-shell/</guid>
+    <description><![CDATA[<p>记录一些MySQL在Linux环境中的运维是可能用到的命令.</p>]]></description>
+</item></channel>
+</rss>

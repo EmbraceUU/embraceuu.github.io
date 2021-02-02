@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>MySQL Shell 常规命令汇总 | </title><meta name="Description" content="达尼的博客"><meta property="og:title" content="MySQL Shell 常规命令汇总" />
+<meta property="og:description" content="记录一些MySQL在Linux环境中的运维是可能用到的命令." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://embraceuu.github.io/db-mysql-shell/" />
+<meta property="og:image" content="https://embraceuu.github.io/" />
+<meta property="article:published_time" content="2018-12-19T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-01-29T23:47:31+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://embraceuu.github.io/"/>
+
+<meta name="twitter:title" content="MySQL Shell 常规命令汇总"/>
+<meta name="twitter:description" content="记录一些MySQL在Linux环境中的运维是可能用到的命令."/>
+<meta name="application-name" content="embrace u">
+<meta name="apple-mobile-web-app-title" content="embrace u"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://embraceuu.github.io/db-mysql-shell/" /><link rel="prev" href="https://embraceuu.github.io/java-syntax/" /><link rel="next" href="https://embraceuu.github.io/java-log4j-conf/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "MySQL Shell 常规命令汇总",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/embraceuu.github.io\/db-mysql-shell\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/embraceuu.github.io\/db-mysql-shell\/featured-image.jpg",
+                            "width":  2880 ,
+                            "height":  1800 
+                        }],"genre": "posts","keywords": "mysql, 数据库","wordCount":  230 ,
+        "url": "https:\/\/embraceuu.github.io\/db-mysql-shell\/","datePublished": "2018-12-19T00:00:00+00:00","dateModified": "2021-01-29T23:47:31+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "embraceu","logo": {
+                    "@type": "ImageObject",
+                    "url": "https:\/\/embraceuu.github.io\/images\/avatar.png",
+                    "width":  528 ,
+                    "height":  560 
+                }},"author": {
+                "@type": "Person",
+                "name": "embraceu"
+            },"description": ""
+    }
+    </script><script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https:\/\/embraceuu.github.io\/"
+        },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "database",
+            "item": "https://embraceuu.github.io/categories/database/"
+        },{
+                "@type": "ListItem",
+                "position": 3,
+                "name": "MySQL Shell 常规命令汇总"
+            }]
+    }
+</script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="EmbraceU" class="header-logo"><span class="header-title-pre"><i class='fas fa-pencil-alt fa-fw'></i></span>EmbraceU</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 归档 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于我 </a><a class="menu-item" href="https://github.com/EmbraceUU" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="EmbraceU" class="header-logo"><span class="header-title-pre"><i class='fas fa-pencil-alt fa-fw'></i></span>EmbraceU</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">归档</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于我</a><a class="menu-item" href="https://github.com/EmbraceUU" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div><main class="main"><div class="container content-article page-toc theme-classic"><div class="toc" id="toc-auto">
+            <div class="toc-title">Contents</div>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><div class="header-post">
+        <div class="post-title">
+
+            <div class="post-all-meta">
+            <div class="breadcrumbs">
+    <a href="/">Home </a>/ <a href="/categories/database/">database </a>/ <a href="/"> MySQL Shell 常规命令汇总 </a>
+</div>
+            <h1 class="single-title animated flipInX">MySQL Shell 常规命令汇总</h1><div class="post-meta">
+                <div class="post-meta-line"><span class="post-category">
+                                <a href="/categories/database/"><i class="far fa-folder fa-fw"></i>&nbsp;database</a>
+                            </span>&nbsp;&nbsp;&nbsp;&nbsp;<i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time class="timeago" datetime="2018-12-19">2018-12-19</time>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;230 words
+                    &nbsp;&nbsp;&nbsp;&nbsp;<i class="far fa-clock fa-fw"></i>&nbsp;2 minutes</div>
+            </div>
+        </div>
+
+
+    </div>
+
+    </div>
+
+        <article class="single toc-start">
+
+        <div class="content-block content-block-first content-block-position">
+
+        <div class="post"><div class="image-theme-classic">
+                <img src="/db-mysql-shell/featured-image.jpg" style="width: 100%">
+            </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#使用sh脚本操作mysql">使用sh脚本操作MySQL</a>
+      <ul>
+        <li><a href="#一般性操作">一般性操作</a></li>
+        <li><a href="#特殊操作">特殊操作</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><span class="post-update">
+                    <b>Updated on 2021-01-29</b>
+                </span><p>记录一些MySQL在Linux环境中的运维是可能用到的命令.</p>
+<h2 id="使用sh脚本操作mysql">使用sh脚本操作MySQL</h2>
+<h3 id="一般性操作">一般性操作</h3>
+<p>包括数据库的创建以及数据库表的操作</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="cp">#!/bin/bash
+</span><span class="cp"></span><span class="nv">HOSTNAME</span><span class="o">=</span><span class="s2">&#34;127.0.0.1&#34;</span>
+<span class="nv">PORT</span><span class="o">=</span><span class="s2">&#34;3306&#34;</span>
+<span class="nv">USERNAME</span><span class="o">=</span><span class="s2">&#34;root&#34;</span>
+<span class="nv">PASSWORD</span><span class="o">=</span><span class="s2">&#34;&#34;</span>
+<span class="nv">DBNAME</span><span class="o">=</span><span class="s2">&#34;test_db&#34;</span>
+<span class="nv">TABLENAME</span><span class="o">=</span><span class="s2">&#34;test_table&#34;</span> 
+
+<span class="c1">#创建数据库</span>
+<span class="nv">create_db_sql</span><span class="o">=</span><span class="s2">&#34;create database IF NOT EXISTS </span><span class="si">${</span><span class="nv">DBNAME</span><span class="si">}</span><span class="s2">&#34;</span>
+mysq l -h<span class="si">${</span><span class="nv">HOSTNAME</span><span class="si">}</span>   -P<span class="si">${</span><span class="nv">PORT</span><span class="si">}</span>    -u<span class="si">${</span><span class="nv">USERNAME</span><span class="si">}</span>  -p<span class="si">${</span><span class="nv">PASSWORD</span><span class="si">}</span>   -e<span class="s2">&#34;</span><span class="si">${</span><span class="nv">create_db_sql</span><span class="si">}</span><span class="s2">&#34;</span>
+ 
+<span class="c1">#创建表</span>
+<span class="nv">create_table_sql</span><span class="o">=</span><span class="s2">&#34;create table IF NOT EXISTS </span><span class="si">${</span><span class="nv">TABLENAME</span><span class="si">}</span><span class="s2"> ( name varchar(20), id int(11) default 0 )&#34;</span>
+mysql -h<span class="si">${</span><span class="nv">HOSTNAME</span><span class="si">}</span>  -P<span class="si">${</span><span class="nv">PORT</span><span class="si">}</span>  -u<span class="si">${</span><span class="nv">USERNAME</span><span class="si">}</span> -p<span class="si">${</span><span class="nv">PASSWORD</span><span class="si">}</span>   <span class="si">${</span><span class="nv">DBNAME</span><span class="si">}</span>   -e<span class="s2">&#34;</span><span class="si">${</span><span class="nv">create_table_sql</span><span class="si">}</span><span class="s2">&#34;</span>
+ 
+<span class="c1">#插入数据</span>
+<span class="nv">insert_sql</span><span class="o">=</span><span class="s2">&#34;insert into </span><span class="si">${</span><span class="nv">TABLENAME</span><span class="si">}</span><span class="s2"> values(&#39;billchen&#39;,2)&#34;</span>
+mysql -h<span class="si">${</span><span class="nv">HOSTNAME</span><span class="si">}</span>  -P<span class="si">${</span><span class="nv">PORT</span><span class="si">}</span>  -u<span class="si">${</span><span class="nv">USERNAME</span><span class="si">}</span> -p<span class="si">${</span><span class="nv">PASSWORD</span><span class="si">}</span>  <span class="si">${</span><span class="nv">DBNAME</span><span class="si">}</span>   -e<span class="s2">&#34;</span><span class="si">${</span><span class="nv">insert_sql</span><span class="si">}</span><span class="s2">&#34;</span>
+ 
+<span class="c1">#查询</span>
+<span class="nv">select_sql</span><span class="o">=</span><span class="s2">&#34;select * from </span><span class="si">${</span><span class="nv">TABLENAME</span><span class="si">}</span><span class="s2">&#34;</span>
+mysql -h<span class="si">${</span><span class="nv">HOSTNAME</span><span class="si">}</span>  -P<span class="si">${</span><span class="nv">PORT</span><span class="si">}</span>  -u<span class="si">${</span><span class="nv">USERNAME</span><span class="si">}</span> -p<span class="si">${</span><span class="nv">PASSWORD</span><span class="si">}</span> <span class="si">${</span><span class="nv">DBNAME</span><span class="si">}</span> -e<span class="s2">&#34;</span><span class="si">${</span><span class="nv">select_sql</span><span class="si">}</span><span class="s2">&#34;</span>
+ 
+<span class="c1">#更新数据</span>
+<span class="nv">update_sql</span><span class="o">=</span><span class="s2">&#34;update </span><span class="si">${</span><span class="nv">TABLENAME</span><span class="si">}</span><span class="s2"> set id=3&#34;</span>
+mysql -h<span class="si">${</span><span class="nv">HOSTNAME</span><span class="si">}</span>  -P<span class="si">${</span><span class="nv">PORT</span><span class="si">}</span>  -u<span class="si">${</span><span class="nv">USERNAME</span><span class="si">}</span> -p<span class="si">${</span><span class="nv">PASSWORD</span><span class="si">}</span> <span class="si">${</span><span class="nv">DBNAME</span><span class="si">}</span> -e<span class="s2">&#34;</span><span class="si">${</span><span class="nv">update_sql</span><span class="si">}</span><span class="s2">&#34;</span>
+mysql -h<span class="si">${</span><span class="nv">HOSTNAME</span><span class="si">}</span>  -P<span class="si">${</span><span class="nv">PORT</span><span class="si">}</span>  -u<span class="si">${</span><span class="nv">USERNAME</span><span class="si">}</span> -p<span class="si">${</span><span class="nv">PASSWORD</span><span class="si">}</span> <span class="si">${</span><span class="nv">DBNAME</span><span class="si">}</span> -e<span class="s2">&#34;</span><span class="si">${</span><span class="nv">select_sql</span><span class="si">}</span><span class="s2">&#34;</span>
+ 
+<span class="c1">#删除数据</span>
+<span class="nv">delete_sql</span><span class="o">=</span><span class="s2">&#34;delete from </span><span class="si">${</span><span class="nv">TABLENAME</span><span class="si">}</span><span class="s2">&#34;</span>
+mysql -h<span class="si">${</span><span class="nv">HOSTNAME</span><span class="si">}</span>  -P<span class="si">${</span><span class="nv">PORT</span><span class="si">}</span>  -u<span class="si">${</span><span class="nv">USERNAME</span><span class="si">}</span> -p<span class="si">${</span><span class="nv">PASSWORD</span><span class="si">}</span> <span class="si">${</span><span class="nv">DBNAME</span><span class="si">}</span> -e<span class="s2">&#34;</span><span class="si">${</span><span class="nv">delete_sql</span><span class="si">}</span><span class="s2">&#34;</span>
+mysql -h<span class="si">${</span><span class="nv">HOSTNAME</span><span class="si">}</span>  -P<span class="si">${</span><span class="nv">PORT</span><span class="si">}</span>  -u<span class="si">${</span><span class="nv">USERNAME</span><span class="si">}</span> -p<span class="si">${</span><span class="nv">PASSWORD</span><span class="si">}</span> <span class="si">${</span><span class="nv">DBNAME</span><span class="si">}</span> -e<span class="s2">&#34;</span><span class="si">${</span><span class="nv">select_sql</span><span class="si">}</span><span class="s2">&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="特殊操作">特殊操作</h3>
+<p>shell中的data作为参数, 执行MySQL语句</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="cp">#!/bin/bash
+</span><span class="cp"></span><span class="c1"># get new order createdtime</span>
+<span class="nv">now</span><span class="o">=</span><span class="sb">`</span>date -d<span class="s1">&#39;-2 minutes&#39;</span> <span class="s1">&#39;+%G-%m-%d %H:%M:%S&#39;</span><span class="sb">`</span>
+
+<span class="c1"># mysql命令</span>
+<span class="nv">orderTime</span><span class="o">=</span><span class="k">$(</span>mysql -h127.0.0.1 -uroot <span class="nb">test</span> -e <span class="s2">&#34;select count(*) from tablename where created_at &gt; &#39;</span><span class="si">${</span><span class="nv">now</span><span class="si">}</span><span class="s2">&#39;;&#34;</span><span class="k">)</span>
+
+<span class="c1"># 执行mysql命令</span>
+<span class="nb">echo</span> <span class="nv">$orderTime</span>
+
+<span class="c1"># 获取结果</span>
+<span class="nv">arr</span><span class="o">=(</span><span class="si">${</span><span class="nv">orderTime</span><span class="si">}</span><span class="o">)</span>
+
+<span class="c1"># 进行结果处理</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">arr</span><span class="p">[1]</span><span class="si">}</span>
+<span class="k">if</span> <span class="o">[</span> <span class="si">${</span><span class="nv">arr</span><span class="p">[1]</span><span class="si">}</span> -gt <span class="m">0</span> <span class="o">]</span><span class="p">;</span><span class="k">then</span>
+<span class="nb">echo</span> YES
+<span class="k">else</span>
+<span class="nb">echo</span> NO
+<span class="k">fi</span>
+
+<span class="c1"># check time with now</span>
+<span class="nv">now</span><span class="o">=</span><span class="sb">`</span>date <span class="s1">&#39;+%G-%m-%d %H:%M:%S&#39;</span><span class="sb">`</span>
+<span class="nb">echo</span> $ expr <span class="s1">&#39;(&#39;</span> <span class="nv">$orderTime</span> - <span class="nv">$now</span> <span class="s1">&#39;)&#39;</span>
+</code></pre></td></tr></table>
+</div>
+</div></div>
+
+            <div class="post"><div class="post-info-share">
+    <span><a class="share-icon share-twitter" href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://embraceuu.github.io/db-mysql-shell/" data-title="MySQL Shell 常规命令汇总" data-hashtags="mysql,数据库"><i class="fab fa-twitter fa-fw"></i></a><a class="share-icon share-facebook" href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://embraceuu.github.io/db-mysql-shell/" data-hashtag="mysql"><i class="fab fa-facebook-square fa-fw"></i></a><a class="share-icon share-line" href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://embraceuu.github.io/db-mysql-shell/" data-title="MySQL Shell 常规命令汇总"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a class="share-icon share-weibo" href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://embraceuu.github.io/db-mysql-shell/" data-title="MySQL Shell 常规命令汇总"><i class="fab fa-weibo fa-fw"></i></a></span>
+</div>
+<div class="footer-post-author"style="border-radius: 10px;border-bottom: solid 2px #ececec">
+    <div class="author-avatar"><a href="" target="_blank"><img alt="" src="" border="0"></a></div>
+    <div class="author-info">
+        <div class="name"><a href="" target="_blank"></a></div>
+        <div class="number-posts"></span></div>
+    </div>
+</div><div class="post-footer" id="post-footer"><div class="post-navigation"><div class="post-nav-box nav-box-prev">
+            <a class="nav-box" href="/java-syntax/"><span class="nav-icon"><svg aria-hidden="true" data-prefix="fas" data-icon="chevron-circle-left" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M256 504C119 504 8 393 8 256S119 8 256 8s248 111 248 248-111 248-248 248zM142.1 273l135.5 135.5c9.4 9.4 24.6 9.4 33.9 0l17-17c9.4-9.4 9.4-24.6 0-33.9L226.9 256l101.6-101.6c9.4-9.4 9.4-24.6 0-33.9l-17-17c-9.4-9.4-24.6-9.4-33.9 0L142.1 239c-9.4 9.4-9.4 24.6 0 34z"></path></svg></span><div style="text-align: right;padding-left: 10px"><div class="nav-text-h">Next article</div><span class="nav-text">Java 知识点整理</span></div></a>
+        </div>
+        <div class="post-nav-box nav-box-next">
+            <a class="nav-box" href="/java-log4j-conf/"><div style="padding-right: 10px"><div class="nav-text-h">Next article</div><span class="nav-text">记录Log4j的配置范本</span></div><span class="nav-icon"><svg aria-hidden="true" data-prefix="fas" data-icon="chevron-circle-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm113.9 231L234.4 103.5c-9.4-9.4-24.6-9.4-33.9 0l-17 17c-9.4 9.4-9.4 24.6 0 33.9L285.1 256 183.5 357.6c-9.4 9.4-9.4 24.6 0 33.9l17 17c9.4 9.4 24.6 9.4 33.9 0L369.9 273c9.4-9.4 9.4-24.6 0-34z"></path></svg></span></a>
+        </div></div></div>
+</div>
+        </div>
+    <div id="toc-final"></div>
+    </article><div class=" post-tags post-tags-toc "><a href="/tags/mysql/" class="tag">mysql</a><a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="tag">数据库</a></div></div></main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.79.1">Hugo</a> | Theme - <a href="https://ublogger.netlify.app/?utm_source=https://embraceuu.github.io/&utm_medium=footer&utm_campaign=config&utm_term=1.2.0" target="_blank" title="uBlogger 1.2.0"><i class="fas fa-pencil-alt fa-fw"></i> uBlogger</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span>2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span>&nbsp;|&nbsp;<span class="license">embraceu</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><script src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script>window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":10},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.en","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"algolia"}};</script><script src="/js/theme.min.js"></script><script src="/js/jquery-3.5.1.min.js"></script></body>
+</html>

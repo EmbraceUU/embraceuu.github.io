@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>记一次Mongo的优化过程 | </title><meta name="Description" content="达尼的博客"><meta property="og:title" content="记一次Mongo的优化过程" />
+<meta property="og:description" content="记录一次Mongo的慢查询分析以及索引优化过程." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://embraceuu.github.io/db-mongo-explain/" />
+<meta property="og:image" content="https://embraceuu.github.io/" />
+<meta property="article:published_time" content="2019-03-05T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-01-29T23:47:31+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://embraceuu.github.io/"/>
+
+<meta name="twitter:title" content="记一次Mongo的优化过程"/>
+<meta name="twitter:description" content="记录一次Mongo的慢查询分析以及索引优化过程."/>
+<meta name="application-name" content="embrace u">
+<meta name="apple-mobile-web-app-title" content="embrace u"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://embraceuu.github.io/db-mongo-explain/" /><link rel="prev" href="https://embraceuu.github.io/java-log4j-conf/" /><link rel="next" href="https://embraceuu.github.io/db-mysql-syntax/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "记一次Mongo的优化过程",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/embraceuu.github.io\/db-mongo-explain\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/embraceuu.github.io\/db-mongo-explain\/featured-image.jpg",
+                            "width":  2880 ,
+                            "height":  1800 
+                        }],"genre": "posts","keywords": "mongo, 数据库","wordCount":  233 ,
+        "url": "https:\/\/embraceuu.github.io\/db-mongo-explain\/","datePublished": "2019-03-05T00:00:00+00:00","dateModified": "2021-01-29T23:47:31+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "embraceu","logo": {
+                    "@type": "ImageObject",
+                    "url": "https:\/\/embraceuu.github.io\/images\/avatar.png",
+                    "width":  528 ,
+                    "height":  560 
+                }},"author": {
+                "@type": "Person",
+                "name": "alex"
+            },"description": ""
+    }
+    </script><script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https:\/\/embraceuu.github.io\/"
+        },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "database",
+            "item": "https://embraceuu.github.io/categories/database/"
+        },{
+                "@type": "ListItem",
+                "position": 3,
+                "name": "记一次Mongo的优化过程"
+            }]
+    }
+</script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="EmbraceU" class="header-logo"><span class="header-title-pre"><i class='fas fa-pencil-alt fa-fw'></i></span>EmbraceU</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 归档 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于我 </a><a class="menu-item" href="https://github.com/EmbraceUU" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="EmbraceU" class="header-logo"><span class="header-title-pre"><i class='fas fa-pencil-alt fa-fw'></i></span>EmbraceU</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">归档</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于我</a><a class="menu-item" href="https://github.com/EmbraceUU" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div><main class="main"><div class="container content-article page-toc theme-classic"><div class="toc" id="toc-auto">
+            <div class="toc-title">Contents</div>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><div class="header-post">
+        <div class="post-title">
+
+            <div class="post-all-meta">
+            <div class="breadcrumbs">
+    <a href="/">Home </a>/ <a href="/categories/database/">database </a>/ <a href="/"> 记一次Mongo的优化过程 </a>
+</div>
+            <h1 class="single-title animated flipInX">记一次Mongo的优化过程</h1><div class="post-meta">
+                <div class="post-meta-line"><span class="post-category">
+                                <a href="/categories/database/"><i class="far fa-folder fa-fw"></i>&nbsp;database</a>
+                            </span>&nbsp;&nbsp;&nbsp;&nbsp;<i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time class="timeago" datetime="2019-03-05">2019-03-05</time>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;233 words
+                    &nbsp;&nbsp;&nbsp;&nbsp;<i class="far fa-clock fa-fw"></i>&nbsp;2 minutes</div>
+            </div>
+        </div>
+
+
+    </div>
+
+    </div>
+
+        <article class="single toc-start">
+
+        <div class="content-block content-block-first content-block-position">
+
+        <div class="post"><div class="image-theme-classic">
+                <img src="/db-mongo-explain/featured-image.jpg" style="width: 100%">
+            </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#问题描述">问题描述</a></li>
+        <li><a href="#测试过程">测试过程</a>
+          <ul>
+            <li><a href="#排序的字段顺序需要考虑索引的顺序">排序的字段顺序需要考虑索引的顺序</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><span class="post-update">
+                    <b>Updated on 2021-01-29</b>
+                </span><p>记录一次Mongo的慢查询分析以及索引优化过程.</p>
+<h3 id="问题描述">问题描述</h3>
+<p>db.coll.find({&lsquo;symbol&rsquo;:{$in:[&lsquo;OKEX.eth_btc&rsquo;,&lsquo;OKEX.btc_usdt&rsquo;]}}).explain(&lsquo;executionStats&rsquo;) 查询耗时</p>
+<p>&ldquo;executionTimeMillisEstimate&rdquo; : 6755 为6s, 需要添加索引, 减少全表扫描</p>
+<p>因为查询需求需要按照多个字段过滤, 避免多个字段导致在FETCH阶段耗时太多, 所以选用复合索引</p>
+<p>首先在测试环境尝试, 再在生产环境中添加</p>
+<p>首先需要弄清楚mongo索引的特性: mongo的索引也是使用Btree作为数据结构, 并且复合索引也需要遵照最左前缀规则[从索引组合的最左边的字段开始排序, 如果查询中没有第一个左边的字段, 将不会走索引]</p>
+<h3 id="测试过程">测试过程</h3>
+<p>简历索引: db.trade_report.createIndex({&lsquo;symbol&rsquo;:1,&lsquo;account_id&rsquo;:1},{background: true})</p>
+<p>查询耗时:  db.trade_report.find({&lsquo;symbol&rsquo;:{$in:[&lsquo;OKEX.eth_btc&rsquo;,&lsquo;OKEX.btc_usdt&rsquo;]}}).explain(&lsquo;executionStats&rsquo;)</p>
+<p>
+
+<div style="text-align: center"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/mongo_explain_01.png"
+        data-srcset="/mongo_explain_01.png, /mongo_explain_01.png 1.5x, /mongo_explain_01.png 1.6x"
+        data-sizes="auto"
+        alt="mongo_explain_01"
+        title="mongo_explain_01.png" /></div></p>
+<p>可以看到, FETCH阶段不到0ms, IXSCAN阶段不到0ms; $in查询走索引</p>
+<p>因为用到了5个字段, 所以删除当前索引, 使用多个字段测试</p>
+<p>db.trade_report.dropIndex(&lsquo;symbol_1_account_id_1&rsquo;)</p>
+<p>accountId是必须的参数, cl_order_id和exec_type是选用的参数, 还有strategy_id和symbol参数</p>
+<p>创建5个字段的索引 db.trade_report.createIndex({&lsquo;account_id&rsquo;:1,&lsquo;exec_type&rsquo;:1,&lsquo;cl_order_id&rsquo;:1,&lsquo;strategy_id&rsquo;:1,&lsquo;symbol&rsquo;:1},{background: true})</p>
+<p>db.trade_report.find({&lsquo;account_id&rsquo;:&lsquo;7675E0D483211CCD2184CA1CB9B3B8AB&rsquo;}).explain()  走索引了</p>
+<p>db.trade_report.find({&lsquo;account_id&rsquo;:&lsquo;7675E0D483211CCD2184CA1CB9B3B8AB&rsquo;,&lsquo;symbol&rsquo;:&lsquo;BINANCE.BTCUSDT&rsquo;}).explain() 竟然也走索引了.</p>
+<p>颠倒顺序: db.trade_report.find({&lsquo;account_id&rsquo;:&lsquo;7675E0D483211CCD2184CA1CB9B3B8AB&rsquo;,&lsquo;symbol&rsquo;:&lsquo;BINANCE.BTCUSDT&rsquo;,&lsquo;cl_order_id&rsquo;:&lsquo;0e2691d6-8eef-11e8-960c-00163e0c0cdf&rsquo;}).explain()  mongo在查询之前重新调整and顺序, 依旧走索引了.</p>
+<p>去掉最左边的account_id字段, db.trade_report.find({&lsquo;symbol&rsquo;:&lsquo;BINANCE.BTCUSDT&rsquo;,&lsquo;cl_order_id&rsquo;:&lsquo;0e2691d6-8eef-11e8-960c-00163e0c0cdf&rsquo;}).explain(), stage为COLLSCAN, 没有走索引</p>
+<blockquote>
+<p>不能只简单的给mongo建索引, 还需要从业务层面考虑如何建立, 比如对cl_order_id这种字段建立索引是没有必要的, 他还是需要扫描很多数据</p>
+</blockquote>
+<blockquote>
+<p>而且 如果字段比索引多了还走索引吗 ?</p>
+</blockquote>
+<p>在遵循最左前缀原则外, 另外加了side字段作为过滤
+db.trade_report.find({&lsquo;account_id&rsquo;:&lsquo;D78B9B2D60E8A34504EE6AB3DCD13357-00003&rsquo;,&lsquo;strategy_id&rsquo;:&lsquo;5a29eb73-39ad-11e9-99c8-00ff85a0533d&rsquo;,&lsquo;side&rsquo;:&lsquo;3&rsquo;}).explain()</p>
+<p>
+
+<div style="text-align: center"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/mongo_explain_02.png"
+        data-srcset="/mongo_explain_02.png, /mongo_explain_02.png 1.5x, /mongo_explain_02.png 1.6x"
+        data-sizes="auto"
+        alt="mongo_explain_02"
+        title="mongo_explain_02.png" /></div></p>
+<blockquote>
+<p>explain results:<br>
+Each stage passes its results (i.e. documents or index keys) to the parent node. The leaf nodes access the collection or the indices. The internal nodes manipulate the documents or the index keys that result from the child nodes. The root node is the final stage from which MongoDB derives the result set. <br>
+子阶段返回结果给父阶段, 先开始IXSCAN, 再进行FETCH阶段 如果查询可以命中索引，它就可以直接给出满足条件的所有文档的地址（IXSCAN），由于得到的是地址，不是文档本身，所以还需要一个额外的步骤从地址找出实际的文档（FETCH）；</p>
+</blockquote>
+<blockquote>
+<p>explain.executionStats.executionTimeMillis:<br>
+Total time in milliseconds required for query plan selection and query execution.</p>
+</blockquote>
+<blockquote>
+<p>advanced:<br>
+The number of intermediate results returned, or advanced, by this stage to its parent stage.<br>
+返回或者推到父阶段的结果</p>
+</blockquote>
+<p>
+
+<div style="text-align: center"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/mongo_explain_03.png"
+        data-srcset="/mongo_explain_03.png, /mongo_explain_03.png 1.5x, /mongo_explain_03.png 1.6x"
+        data-sizes="auto"
+        alt="mongo_explain_03"
+        title="mongo_explain_03.png" /></div></p>
+<h4 id="排序的字段顺序需要考虑索引的顺序">排序的字段顺序需要考虑索引的顺序</h4>
+<p>添加索引示例
+db.trade_report.createIndex({&lsquo;exec_id&rsquo;:-1},{background:true,sparse:true})
+此为单一字段的索引, background为后台运行,不阻塞mongo的其他操作, sparse为在索引字段存在的时候 才会有添加索引的动作,节省资源</p>
+<p>区间查询是否走索引
+db.trade_report.createIndex({&lsquo;create_at&rsquo;:-1},{background:true})
+db.trade_report.find({&lsquo;create_at&rsquo;:{$gte:&lsquo;2019-03-02 00:00:00&rsquo;,$lte:&lsquo;2019-03-02 23:59:59&rsquo;}}).explain(&lsquo;executionStats&rsquo;)</p>
+<p>
+
+<div style="text-align: center"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/mongo_explain_04.png"
+        data-srcset="/mongo_explain_04.png, /mongo_explain_04.png 1.5x, /mongo_explain_04.png 1.6x"
+        data-sizes="auto"
+        alt="mongo_explain_04"
+        title="mongo_explain_04.png" /></div></p>
+<p>测试开始:</p>
+<p>当前集合拥有的索引有:</p>
+<p>
+
+<div style="text-align: center"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/mongo_explain_05.png"
+        data-srcset="/mongo_explain_05.png, /mongo_explain_05.png 1.5x, /mongo_explain_05.png 1.6x"
+        data-sizes="auto"
+        alt="mongo_explain_05"
+        title="mongo_explain_05.png" /></div></p>
+<p>命令为: db.trade_report.find({&lsquo;account_id&rsquo;:&lsquo;D78B9B2D60E8A34504EE6AB3DCD13357-00003&rsquo;,&lsquo;strategy_id&rsquo;:&lsquo;f3b98546-3c98-11e9-8d1d-00ff85a0533d&rsquo;,&lsquo;create_at&rsquo;:{$gte:&lsquo;2019-03-02 00:00:00&rsquo;,$lte:&lsquo;2019-03-02 23:59:59&rsquo;}}).explain(&lsquo;executionStats&rsquo;)</p>
+<p>winner plan:</p>
+<p>
+
+<div style="text-align: center"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/mongo_explain_06.png"
+        data-srcset="/mongo_explain_06.png, /mongo_explain_06.png 1.5x, /mongo_explain_06.png 1.6x"
+        data-sizes="auto"
+        alt="mongo_explain_06"
+        title="mongo_explain_06.png" /></div></p>
+<p>
+
+<div style="text-align: center"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/mongo_explain_07.png"
+        data-srcset="/mongo_explain_07.png, /mongo_explain_07.png 1.5x, /mongo_explain_07.png 1.6x"
+        data-sizes="auto"
+        alt="mongo_explain_07"
+        title="mongo_explain_07.png" /></div></p>
+<p>这是理想状态下的, 索引检索返回来的结果和filter中非索引字段过滤的结果一致</p>
+<p>命令行: db.trade_report.find({&lsquo;account_id&rsquo;:&lsquo;D78B9B2D60E8A34504EE6AB3DCD13357-00003&rsquo;,&lsquo;strategy_id&rsquo;:&lsquo;f3b98546-3c98-11e9-8d1d-00ff85a0533d&rsquo;,&lsquo;create_at&rsquo;:{$gte:&lsquo;2019-03-02 19:41:14&rsquo;,$lte:&lsquo;2019-03-02 19:41:15&rsquo;}}).explain(&lsquo;executionStats&rsquo;)</p>
+<p>winner plan :</p>
+<p>
+
+<div style="text-align: center"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/mongo_explain_08.png"
+        data-srcset="/mongo_explain_08.png, /mongo_explain_08.png 1.5x, /mongo_explain_08.png 1.6x"
+        data-sizes="auto"
+        alt="mongo_explain_08"
+        title="mongo_explain_08.png" /></div></p>
+<p>
+
+<div style="text-align: center"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/mongo_explain_09.png"
+        data-srcset="/mongo_explain_09.png, /mongo_explain_09.png 1.5x, /mongo_explain_09.png 1.6x"
+        data-sizes="auto"
+        alt="mongo_explain_09"
+        title="mongo_explain_09.png" /></div></p>
+<p>
+
+<div style="text-align: center"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/mongo_explain_10.png"
+        data-srcset="/mongo_explain_10.png, /mongo_explain_10.png 1.5x, /mongo_explain_10.png 1.6x"
+        data-sizes="auto"
+        alt="mongo_explain_10"
+        title="mongo_explain_10.png" /></div></p>
+<p>mongo 选用了create_at索引 , 没有走account_id_1_strategy_id_1_symbol_1索引</p>
+<p>需要考虑索引的大小, 因为索引也是占用空间的, 太大了就没有意义了, 反而浪费资源</p>
+<p>从数据出发，基于真实场景的日志，把业务体系里常见的查询滤出来，对最常见的查询做针对性的索引优化，然后对非常不常见的查询组合，从源头是可以控制的。
+根据where条件建索引是极其重要的一个原则; 注意不要过多用索引,否则对表更新的效率有很大的影响,因为在操作表的时候要化大量时间花在创建索引中</p>
+<p>The $match and $sort pipeline operators can take advantage of an index when they occur at the beginning of the pipeline.
+聚合查询中的$match是走索引的, 需要把$match最前面的, 进入管道的数据会少很多, 并且把$sort放在$match后面会减少一部分的排序</p>
+<p>聚合查询使用explain:<br>
+db.col.aggregate(pepiline, options)
+db.trade_report.aggregate([{$group:{_id:'$account_id',count:{$sum:1}}}],{explain:true})</p>
+<p>查询当前accountid一共有多少:<br>
+db.trade_report.aggregate([{$group:{_id:'$account_id',count:{$sum:1}}},{$group:{_id:'$account_id',num:{$sum:1}}}])</p>
+<p>
+
+<div style="text-align: center"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/mongo_explain_11.png"
+        data-srcset="/mongo_explain_11.png, /mongo_explain_11.png 1.5x, /mongo_explain_11.png 1.6x"
+        data-sizes="auto"
+        alt="mongo_explain_11"
+        title="mongo_explain_11.png" /></div></p>
+<p>并且account对应的数据量大小也相差较多,  少的有1个  大的有几万</p>
+<p>
+
+<div style="text-align: center"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/mongo_explain_12.png"
+        data-srcset="/mongo_explain_12.png, /mongo_explain_12.png 1.5x, /mongo_explain_12.png 1.6x"
+        data-sizes="auto"
+        alt="mongo_explain_12"
+        title="mongo_explain_12.png" /></div></p>
+<p>命令行:  db.trade_report.find({&lsquo;account_id&rsquo;:&lsquo;CE1406597976E3EF15793403649346B6&rsquo;}).explain(&lsquo;executionStats&rsquo;)</p>
+<p>
+
+<div style="text-align: center"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/mongo_explain_13.png"
+        data-srcset="/mongo_explain_13.png, /mongo_explain_13.png 1.5x, /mongo_explain_13.png 1.6x"
+        data-sizes="auto"
+        alt="mongo_explain_13"
+        title="mongo_explain_13.png" /></div></p>
+<p>命令行: db.trade_report.find({&lsquo;account_id&rsquo;:&lsquo;CE1406597976E3EF15793403649346B6&rsquo;,&lsquo;strategy_id&rsquo;:&lsquo;7ab8d8dd-3a6f-11e9-acd2-0e04d673df9e&rsquo;}).limit(1).explain(&lsquo;executionStats&rsquo;)</p>
+<p>
+
+<div style="text-align: center"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/mongo_explain_14.png"
+        data-srcset="/mongo_explain_14.png, /mongo_explain_14.png 1.5x, /mongo_explain_14.png 1.6x"
+        data-sizes="auto"
+        alt="mongo_explain_14"
+        title="mongo_explain_14.png" /></div></p>
+<p>因为业务上每次都会有accountid和strategyid,所以这两个应该建立一个针对性的窄索引; 然后加上Limit 500, 根据id逆序排序</p></div>
+
+            <div class="post"><div class="post-info-share">
+    <span><a class="share-icon share-twitter" href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://embraceuu.github.io/db-mongo-explain/" data-title="记一次Mongo的优化过程" data-hashtags="mongo,数据库"><i class="fab fa-twitter fa-fw"></i></a><a class="share-icon share-facebook" href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://embraceuu.github.io/db-mongo-explain/" data-hashtag="mongo"><i class="fab fa-facebook-square fa-fw"></i></a><a class="share-icon share-line" href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://embraceuu.github.io/db-mongo-explain/" data-title="记一次Mongo的优化过程"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a class="share-icon share-weibo" href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://embraceuu.github.io/db-mongo-explain/" data-title="记一次Mongo的优化过程"><i class="fab fa-weibo fa-fw"></i></a></span>
+</div>
+<div class="footer-post-author"style="border-radius: 10px;border-bottom: solid 2px #ececec">
+    <div class="author-avatar"><a href="" target="_blank"><img alt="" src="" border="0"></a></div>
+    <div class="author-info">
+        <div class="name"><a href="" target="_blank"></a></div>
+        <div class="number-posts"></span></div>
+    </div>
+</div><div class="post-footer" id="post-footer"><div class="post-navigation"><div class="post-nav-box nav-box-prev">
+            <a class="nav-box" href="/java-log4j-conf/"><span class="nav-icon"><svg aria-hidden="true" data-prefix="fas" data-icon="chevron-circle-left" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M256 504C119 504 8 393 8 256S119 8 256 8s248 111 248 248-111 248-248 248zM142.1 273l135.5 135.5c9.4 9.4 24.6 9.4 33.9 0l17-17c9.4-9.4 9.4-24.6 0-33.9L226.9 256l101.6-101.6c9.4-9.4 9.4-24.6 0-33.9l-17-17c-9.4-9.4-24.6-9.4-33.9 0L142.1 239c-9.4 9.4-9.4 24.6 0 34z"></path></svg></span><div style="text-align: right;padding-left: 10px"><div class="nav-text-h">Next article</div><span class="nav-text">记录Log4j的配置范本</span></div></a>
+        </div>
+        <div class="post-nav-box nav-box-next">
+            <a class="nav-box" href="/db-mysql-syntax/"><div style="padding-right: 10px"><div class="nav-text-h">Next article</div><span class="nav-text">Mysql 相关汇总</span></div><span class="nav-icon"><svg aria-hidden="true" data-prefix="fas" data-icon="chevron-circle-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm113.9 231L234.4 103.5c-9.4-9.4-24.6-9.4-33.9 0l-17 17c-9.4 9.4-9.4 24.6 0 33.9L285.1 256 183.5 357.6c-9.4 9.4-9.4 24.6 0 33.9l17 17c9.4 9.4 24.6 9.4 33.9 0L369.9 273c9.4-9.4 9.4-24.6 0-34z"></path></svg></span></a>
+        </div></div></div>
+</div>
+        </div>
+    <div id="toc-final"></div>
+    </article><div class=" post-tags post-tags-toc "><a href="/tags/mongo/" class="tag">mongo</a><a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="tag">数据库</a></div></div></main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.79.1">Hugo</a> | Theme - <a href="https://ublogger.netlify.app/?utm_source=https://embraceuu.github.io/&utm_medium=footer&utm_campaign=config&utm_term=1.2.0" target="_blank" title="uBlogger 1.2.0"><i class="fas fa-pencil-alt fa-fw"></i> uBlogger</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span>2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span>&nbsp;|&nbsp;<span class="license">embraceu</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><script src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script>window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":10},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.en","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"algolia"}};</script><script src="/js/theme.min.js"></script><script src="/js/jquery-3.5.1.min.js"></script></body>
+</html>

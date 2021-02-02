@@ -1,0 +1,14 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>log4j - Tag - EmbraceU</title>
+        <link>https://embraceuu.github.io/tags/log4j/</link>
+        <description>log4j - Tag - EmbraceU</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 24 Dec 2018 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://embraceuu.github.io/tags/log4j/" rel="self" type="application/rss+xml" /><item>
+    <title>记录Log4j的配置范本</title>
+    <link>https://embraceuu.github.io/java-log4j-conf/</link>
+    <pubDate>Mon, 24 Dec 2018 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>https://embraceuu.github.io/java-log4j-conf/</guid>
+    <description><![CDATA[<p>记录Log4j在项目中的配置范本.</p>]]></description>
+</item></channel>
+</rss>

@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>常用Shell命令 | </title><meta name="Description" content="达尼的博客"><meta property="og:title" content="常用Shell命令" />
+<meta property="og:description" content="记录常用的Linux命令以及Shell语法" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://embraceuu.github.io/linux-shell/" />
+<meta property="og:image" content="https://embraceuu.github.io/" />
+<meta property="article:published_time" content="2019-07-04T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-01-29T23:47:31+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://embraceuu.github.io/"/>
+
+<meta name="twitter:title" content="常用Shell命令"/>
+<meta name="twitter:description" content="记录常用的Linux命令以及Shell语法"/>
+<meta name="application-name" content="embrace u">
+<meta name="apple-mobile-web-app-title" content="embrace u"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://embraceuu.github.io/linux-shell/" /><link rel="prev" href="https://embraceuu.github.io/tools-git/" /><link rel="next" href="https://embraceuu.github.io/db-mongo-syntax/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "常用Shell命令",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/embraceuu.github.io\/linux-shell\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/embraceuu.github.io\/linux-shell\/featured-image.jpg",
+                            "width":  2880 ,
+                            "height":  1800 
+                        }],"genre": "posts","keywords": "shell","wordCount":  631 ,
+        "url": "https:\/\/embraceuu.github.io\/linux-shell\/","datePublished": "2019-07-04T00:00:00+00:00","dateModified": "2021-01-29T23:47:31+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "embraceu","logo": {
+                    "@type": "ImageObject",
+                    "url": "https:\/\/embraceuu.github.io\/images\/avatar.png",
+                    "width":  528 ,
+                    "height":  560 
+                }},"author": {
+                "@type": "Person",
+                "name": "embraceu"
+            },"description": ""
+    }
+    </script><script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https:\/\/embraceuu.github.io\/"
+        },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "linux",
+            "item": "https://embraceuu.github.io/categories/linux/"
+        },{
+                "@type": "ListItem",
+                "position": 3,
+                "name": "常用Shell命令"
+            }]
+    }
+</script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="EmbraceU" class="header-logo"><span class="header-title-pre"><i class='fas fa-pencil-alt fa-fw'></i></span>EmbraceU</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 归档 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于我 </a><a class="menu-item" href="https://github.com/EmbraceUU" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="EmbraceU" class="header-logo"><span class="header-title-pre"><i class='fas fa-pencil-alt fa-fw'></i></span>EmbraceU</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">归档</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于我</a><a class="menu-item" href="https://github.com/EmbraceUU" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div><main class="main"><div class="container content-article page-toc theme-classic"><div class="toc" id="toc-auto">
+            <div class="toc-title">Contents</div>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><div class="header-post">
+        <div class="post-title">
+
+            <div class="post-all-meta">
+            <div class="breadcrumbs">
+    <a href="/">Home </a>/ <a href="/categories/linux/">linux </a>/ <a href="/"> 常用Shell命令 </a>
+</div>
+            <h1 class="single-title animated flipInX">常用Shell命令</h1><div class="post-meta">
+                <div class="post-meta-line"><span class="post-category">
+                                <a href="/categories/linux/"><i class="far fa-folder fa-fw"></i>&nbsp;linux</a>
+                            </span>&nbsp;&nbsp;&nbsp;&nbsp;<i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time class="timeago" datetime="2019-07-04">2019-07-04</time>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;631 words
+                    &nbsp;&nbsp;&nbsp;&nbsp;<i class="far fa-clock fa-fw"></i>&nbsp;3 minutes</div>
+            </div>
+        </div>
+
+
+    </div>
+
+    </div>
+
+        <article class="single toc-start">
+
+        <div class="content-block content-block-first content-block-position">
+
+        <div class="post"><div class="image-theme-classic">
+                <img src="/linux-shell/featured-image.jpg" style="width: 100%">
+            </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#shell">Shell</a>
+      <ul>
+        <li><a href="#tar">tar</a></li>
+        <li><a href="#vim">vim</a></li>
+        <li><a href="#python">Python</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><span class="post-update">
+                    <b>Updated on 2021-01-29</b>
+                </span><p>记录常用的Linux命令以及Shell语法</p>
+<h2 id="shell">Shell</h2>
+<ul>
+<li>
+<p>清屏</p>
+<p>Ctrl + l</p>
+</li>
+<li>
+<p>滚动文档</p>
+<p>tail -f</p>
+<p>刷新暂停：Ctrl + s</p>
+<p>刷新继续：ctrl + q</p>
+</li>
+<li>
+<p>挂起任务</p>
+<p>Ctrl + z</p>
+<p>用fg命令恢复</p>
+</li>
+<li>
+<p>强制中断进程</p>
+<p>Ctrl + c</p>
+</li>
+<li>
+<p>grep</p>
+<p>反响过滤 -v</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
+</span><span class="cp"></span>grep <span class="s2">&#34;api.coinw.me.*appApi.*action=trade&#34;</span> tradingcenter_info.log <span class="p">|</span> grep -v code.*200
+
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>输入输出重定向</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">command1 &gt; file1
+<span class="c1"># 上面这个命令执行command1然后将输出的内容存入file1。任何file1内的已经存在的内容将被新内容替代。</span>
+command1 &lt; file1
+<span class="c1"># 本来需要从键盘获取输入的命令会转移到文件读取内容。</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>更换文件所属用户</p>
+<p>chown marspro marswebserver</p>
+</li>
+<li>
+<p>更换文件所属用户组</p>
+<p>chgrp marspro marswebserver</p>
+</li>
+</ul>
+<h3 id="tar">tar</h3>
+<p><strong>查看</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">// 在不解压的情况下查看压缩包的内容
+tar -tf aaa.tar.gz
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>压缩</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">//将目录里所有jpg文件打包成tar.jpg
+tar –cvf jpg.tar *.jpg 
+
+//将目录里所有jpg文件打包成jpg.tar后，并且将其用gzip压缩，生成一个gzip压缩过的包，命名为jpg.tar.gz
+tar –czf jpg.tar.gz *.jpg 
+
+//将目录里所有jpg文件打包成jpg.tar后，并且将其用bzip2压缩，生成一个bzip2压缩过的包，命名为jpg.tar.bz2
+tar –cjf jpg.tar.bz2 *.jpg 
+
+//将目录里所有jpg文件打包成jpg.tar后，并且将其用compress压缩，生成一个umcompress压缩过的包，命名为jpg.tar.Z
+tar –cZf jpg.tar.Z *.jpg   
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>解压</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">//解压 tar包
+tar –xvf file.tar 
+
+//解压tar.gz
+tar -xzvf file.tar.gz 
+
+//解压 tar.bz2tar –xZvf file.tar.Z //解压tar.Z
+tar -xjvf file.tar.bz2   
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="vim">vim</h3>
+<ul>
+<li>
+<p>显示行号</p>
+<p>set nu</p>
+</li>
+<li>
+<p>隐藏行号</p>
+<p>set nonu</p>
+</li>
+<li>
+<p>查找字符</p>
+<p>/vol</p>
+</li>
+<li>
+<p>上一个</p>
+<p>N</p>
+</li>
+<li>
+<p>下一个</p>
+<p>n</p>
+</li>
+<li>
+<p>删除整行</p>
+<p>dd</p>
+</li>
+<li>
+<p>撤回</p>
+<p>u</p>
+</li>
+<li>
+<p>刷新</p>
+<p>e</p>
+</li>
+<li>
+<p>删除行：光标所在处</p>
+<p>dd</p>
+</li>
+<li>
+<p>删除多行：光标以下N行</p>
+<p>Ndd</p>
+</li>
+<li>
+<p>复制</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">cp <span class="o">[</span>文件<span class="o">]</span> <span class="o">[</span>目录<span class="o">]</span>
+<span class="c1"># 循环复制</span>
+cp -r <span class="o">[</span>文件夹<span class="o">]</span> <span class="o">[</span>目录<span class="o">]</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>删除文件</p>
+<p>rm -rf：递归的删除文件及子文件，不询问</p>
+</li>
+<li>
+<p>查找文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 一定要注意path</span>
+find &lt;path&gt; &lt;expression&gt;
+find /  -name  filename
+find /
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>启动jar包进程</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">退出后不关闭进程:
+java -jar tcjobs.jar binanceWsJob <span class="p">&amp;</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>查看进程</p>
+<p>ps -ef | grep tcjobs.jar</p>
+</li>
+<li>
+<p>重命名 &amp; 移动</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">mv A B：将A重命名为B
+mv a/b c/b：将b从a移动到c
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>上传/下载</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">rz -be：上传
+sz：下载
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>统计行数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">grep -c <span class="s2">&#34;aaa&#34;</span> bb.log
+grep aaa bb.log <span class="p">|</span> wc -l
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>正则连续区间</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">grep -E <span class="s1">&#39;24[88-91].*bbb.*&#39;</span> bb.log
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>变量声明</p>
+<p>declare 可以一次声明多个  用空格隔开</p>
+</li>
+<li>
+<p>远程连接</p>
+<p>ssh &lt;IP&gt;</p>
+</li>
+<li>
+<p>截取字符串</p>
+<p>echo ${var:0:5}</p>
+</li>
+<li>
+<p>拼接字符串</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">$value1</span><span class="o">=</span>home
+<span class="nv">$value2</span><span class="o">=</span><span class="si">${</span><span class="nv">value1</span><span class="si">}</span><span class="s2">&#34;=&#34;</span>
+<span class="nb">echo</span> <span class="nv">$value2</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>IF</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="k">if</span> <span class="o">[</span> 条件表达式 <span class="o">]</span><span class="p">;</span><span class="k">then</span>
+...
+<span class="k">elif</span> <span class="o">[</span> 条件表达式 <span class="o">]</span><span class="p">;</span><span class="k">then</span>
+...
+<span class="k">else</span>
+...
+<span class="k">fi</span>
+<span class="c1"># 条件表达式两边必须有空格</span>
+<span class="c1"># 组合条件：-a:and -o:or !:非</span>
+<span class="c1"># 整数判断：-gt/-lt/-ge/-le</span>
+<span class="c1"># 字符串判断：&gt;/&lt;/==</span>
+
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>字符串转数字</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">value</span><span class="o">=</span><span class="k">$((</span>n#<span class="si">${</span><span class="nv">key</span><span class="si">}</span>Xm<span class="k">))</span>
+<span class="c1"># value:自定义变量得到运算的值</span>
+<span class="c1"># n:欲转成的进制数； 2进制就是2，10进制就是10</span>
+<span class="c1"># key:字符串变量</span>
+<span class="c1"># X：操作符；如+ - * /  &amp;...</span>
+<span class="c1"># m:操作数</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>while</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="k">while</span> <span class="o">[</span> condition <span class="o">]</span>
+<span class="k">do</span>
+    commands
+<span class="k">done</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>查看端口</p>
+<p>netstat  -lntp</p>
+</li>
+<li>
+<p>定时任务</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">查看：crontab -l
+编辑：crontab -e
+*/30 * * * *  rm -f /tmp/ds-persist.10-35-97-244.nf.log.*
+如果多种情况，用“，”隔开
+&lt;分时日月年 conmond&gt;
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>查看内存情况</p>
+<p>top</p>
+</li>
+<li>
+<p>查看剩余内存情况</p>
+<p>free</p>
+</li>
+<li>
+<p>通过PID查找文件目录</p>
+<p>ll /proc/&lt;PID&gt;</p>
+</li>
+<li>
+<p>查询时间区间内的行</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">cat aa.log bb.log <span class="p">|</span> grep -E <span class="s2">&#34;cc.*&#34;</span> <span class="p">|</span> sed -n <span class="s1">&#39;/1534953593/&#39;</span>,<span class="s1">&#39;/1534953604/p&#39;</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>修改替换文本</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">sed -i <span class="s1">&#39;s/aa/bb/g&#39;</span> cc.log
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>退出高亮</p>
+<p>:nohl</p>
+</li>
+<li>
+<p>指定指令</p>
+<p>alias 快捷键 = ' &hellip; '</p>
+<p>alias -p 打印指令别名</p>
+</li>
+<li>
+<p>输入其他命令</p>
+<p>&laquo;EOF 告诉shell，后面的命令执行其他的命令，不作为主shell执行</p>
+<p>EOF 知道遇到它为止</p>
+</li>
+<li>
+<p>解压rar</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># centos安装rar方法</span>
+wget http://www.rarsoft.com/rar/rarlinux-x64-5.4.0.tar.gz
+tar -zxvf rarlinux-x64-5.4.0.tar.gz
+<span class="nb">cd</span> rar
+make
+rar x centos.rar <span class="c1"># 解压 centos.rar 到当前目录</span>
+rar centos.rar ./piaoyi.org/ <span class="c1"># 将 piaoyi.org 目录打包为 centos.rar</span>
+
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>日期格式化</p>
+<p>date &lsquo;+%Y%m%d%H&rsquo;</p>
+</li>
+<li>
+<p>查看进程启动数目</p>
+<p>ps -ef | grep bitmexSymbolJob | grep -v &ldquo;grep&rdquo; | wc -l</p>
+</li>
+<li>
+<p>监测java进程运行结果</p>
+<p>$?  如果爆出异常  会返回1   如果完整执行完， 返回0</p>
+</li>
+<li>
+<p>删除windows换行码</p>
+<p>cat fcoin | tr -d &quot;\015&quot; &gt; newfcoin</p>
+</li>
+<li>
+<p>查看防火墙</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">service iptables stop
+service iptables status
+service iptables start
+/etc/sysconfig/iptables  <span class="c1"># 配置路径</span>
+<span class="c1"># 或者</span>
+systemctl status iptables
+systemctl stop iptables
+
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>历史记录</p>
+<p>history | grep &lt;regexp&gt;</p>
+</li>
+</ul>
+<h3 id="python">Python</h3>
+<blockquote>
+<p>SHELL执行python 时， 传参如果是一个带空格的字符串，如果用$vol只能传递空格前的一个子串，加上“$vol”就可以了</p>
+</blockquote>
+<ul>
+<li>
+<p>安装mongodb</p>
+<p>python2.7 -m easy_install pymongo</p>
+</li>
+<li>
+<p>抓包</p>
+<p>tcpdump</p>
+</li>
+<li>
+<p>获取几天之后的日期</p>
+<p>date -d 7day +%Y%m%d</p>
+</li>
+<li>
+<p>查找与替换</p>
+<p>将第一行替换成just并保存</p>
+<p>sed -i &lsquo;1c just&rsquo; date.sh</p>
+</li>
+<li>
+<p>sed中传入参数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">date</span><span class="o">=</span><span class="sb">`</span>date -d 7day +%Y%m%d<span class="sb">`</span>
+sed -i <span class="s1">&#39;1c &#39;</span><span class="nv">$date</span><span class="s1">&#39;&#39;</span> date.sh
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>sed打印第一行</p>
+<p>symbol=<code>sed -n 'p' ../../util/symboldate</code></p>
+</li>
+<li>
+<p>观察日志</p>
+<p>tail -f nohup.out | egrep &lsquo;ERROR|ception&rsquo;</p>
+</li>
+<li>
+<p>查询出口IP</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">curl ifconfig.me
+curl ipinfo.io
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>排查磁盘空间问题</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">df -h <span class="c1"># 查看磁盘占用情况</span>
+du -sh * <span class="c1"># 查看文件大小</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>查看文件情况</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">lsof
+<span class="c1"># 查看已删除文件</span>
+lsof <span class="p">|</span> grep deleted
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>记一次查询记录</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">grep huobicloud nohup.out.20190222 <span class="p">|</span> grep handleMessage <span class="p">|</span> grep order <span class="p">|</span> awk -F<span class="s1">&#39;[:,]+&#39;</span> <span class="s1">&#39;{print $10&#34; &#34;$17&#34; &#34;$33}&#39;</span>
+grep huobicloud nohup.out.20190222 <span class="p">|</span> grep handleMessage <span class="p">|</span> grep partial-filled <span class="p">|</span> awk -F<span class="s1">&#39;:&#39;</span> <span class="s1">&#39;{print $12}&#39;</span> <span class="p">|</span> sort <span class="p">|</span> uniq <span class="p">|</span> awk -F<span class="s1">&#39;,&#39;</span> <span class="s1">&#39;{print $1}&#39;</span> &gt; order_id
+grep huobicloud nohup.out.20190222 <span class="p">|</span> grep handleMessage <span class="p">|</span> grep order <span class="p">|</span> awk -F<span class="s1">&#39;[:,]+&#39;</span> <span class="s1">&#39;{print $17&#34; &#34;$10&#34; &#34;$33}&#39;</span> <span class="p">|</span> sort
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>last 查看登录信息</p>
+</li>
+</ul></div>
+
+            <div class="post"><div class="post-info-share">
+    <span><a class="share-icon share-twitter" href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://embraceuu.github.io/linux-shell/" data-title="常用Shell命令" data-hashtags="shell"><i class="fab fa-twitter fa-fw"></i></a><a class="share-icon share-facebook" href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://embraceuu.github.io/linux-shell/" data-hashtag="shell"><i class="fab fa-facebook-square fa-fw"></i></a><a class="share-icon share-line" href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://embraceuu.github.io/linux-shell/" data-title="常用Shell命令"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a class="share-icon share-weibo" href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://embraceuu.github.io/linux-shell/" data-title="常用Shell命令"><i class="fab fa-weibo fa-fw"></i></a></span>
+</div>
+<div class="footer-post-author"style="border-radius: 10px;border-bottom: solid 2px #ececec">
+    <div class="author-avatar"><a href="" target="_blank"><img alt="" src="" border="0"></a></div>
+    <div class="author-info">
+        <div class="name"><a href="" target="_blank"></a></div>
+        <div class="number-posts"></span></div>
+    </div>
+</div><div class="post-footer" id="post-footer"><div class="post-navigation"><div class="post-nav-box nav-box-prev">
+            <a class="nav-box" href="/tools-git/"><span class="nav-icon"><svg aria-hidden="true" data-prefix="fas" data-icon="chevron-circle-left" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M256 504C119 504 8 393 8 256S119 8 256 8s248 111 248 248-111 248-248 248zM142.1 273l135.5 135.5c9.4 9.4 24.6 9.4 33.9 0l17-17c9.4-9.4 9.4-24.6 0-33.9L226.9 256l101.6-101.6c9.4-9.4 9.4-24.6 0-33.9l-17-17c-9.4-9.4-24.6-9.4-33.9 0L142.1 239c-9.4 9.4-9.4 24.6 0 34z"></path></svg></span><div style="text-align: right;padding-left: 10px"><div class="nav-text-h">Next article</div><span class="nav-text">Git常用命令</span></div></a>
+        </div>
+        <div class="post-nav-box nav-box-next">
+            <a class="nav-box" href="/db-mongo-syntax/"><div style="padding-right: 10px"><div class="nav-text-h">Next article</div><span class="nav-text">Mongo Note</span></div><span class="nav-icon"><svg aria-hidden="true" data-prefix="fas" data-icon="chevron-circle-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm113.9 231L234.4 103.5c-9.4-9.4-24.6-9.4-33.9 0l-17 17c-9.4 9.4-9.4 24.6 0 33.9L285.1 256 183.5 357.6c-9.4 9.4-9.4 24.6 0 33.9l17 17c9.4 9.4 24.6 9.4 33.9 0L369.9 273c9.4-9.4 9.4-24.6 0-34z"></path></svg></span></a>
+        </div></div></div>
+</div>
+        </div>
+    <div id="toc-final"></div>
+    </article><div class=" post-tags post-tags-toc "><a href="/tags/shell/" class="tag">shell</a></div></div></main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.79.1">Hugo</a> | Theme - <a href="https://ublogger.netlify.app/?utm_source=https://embraceuu.github.io/&utm_medium=footer&utm_campaign=config&utm_term=1.2.0" target="_blank" title="uBlogger 1.2.0"><i class="fas fa-pencil-alt fa-fw"></i> uBlogger</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span>2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span>&nbsp;|&nbsp;<span class="license">embraceu</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><script src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script>window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":10},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.en","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"algolia"}};</script><script src="/js/theme.min.js"></script><script src="/js/jquery-3.5.1.min.js"></script></body>
+</html>

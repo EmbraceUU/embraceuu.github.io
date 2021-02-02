@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Mysql 相关汇总 | </title><meta name="Description" content="MySQL日常笔记, 包括了一些常用命令和语法. "><meta property="og:title" content="Mysql 相关汇总" />
+<meta property="og:description" content="MySQL日常笔记, 包括了一些常用命令和语法. " />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://embraceuu.github.io/db-mysql-syntax/" />
+<meta property="og:image" content="https://embraceuu.github.io/" />
+<meta property="article:published_time" content="2019-03-05T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-01-29T23:47:31+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://embraceuu.github.io/"/>
+
+<meta name="twitter:title" content="Mysql 相关汇总"/>
+<meta name="twitter:description" content="MySQL日常笔记, 包括了一些常用命令和语法. "/>
+<meta name="application-name" content="embrace u">
+<meta name="apple-mobile-web-app-title" content="embrace u"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://embraceuu.github.io/db-mysql-syntax/" /><link rel="prev" href="https://embraceuu.github.io/db-mongo-explain/" /><link rel="next" href="https://embraceuu.github.io/tools-git/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Mysql 相关汇总",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/embraceuu.github.io\/db-mysql-syntax\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/embraceuu.github.io\/db-mysql-syntax\/featured-image.jpg",
+                            "width":  2880 ,
+                            "height":  1800 
+                        }],"genre": "posts","keywords": "mysql, 数据库","wordCount":  706 ,
+        "url": "https:\/\/embraceuu.github.io\/db-mysql-syntax\/","datePublished": "2019-03-05T00:00:00+00:00","dateModified": "2021-01-29T23:47:31+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "embraceu","logo": {
+                    "@type": "ImageObject",
+                    "url": "https:\/\/embraceuu.github.io\/images\/avatar.png",
+                    "width":  528 ,
+                    "height":  560 
+                }},"author": {
+                "@type": "Person",
+                "name": "达尼"
+            },"description": "MySQL日常笔记, 包括了一些常用命令和语法. "
+    }
+    </script><script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https:\/\/embraceuu.github.io\/"
+        },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "database",
+            "item": "https://embraceuu.github.io/categories/database/"
+        },{
+                "@type": "ListItem",
+                "position": 3,
+                "name": "Mysql 相关汇总"
+            }]
+    }
+</script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="EmbraceU" class="header-logo"><span class="header-title-pre"><i class='fas fa-pencil-alt fa-fw'></i></span>EmbraceU</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 归档 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于我 </a><a class="menu-item" href="https://github.com/EmbraceUU" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="EmbraceU" class="header-logo"><span class="header-title-pre"><i class='fas fa-pencil-alt fa-fw'></i></span>EmbraceU</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">归档</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于我</a><a class="menu-item" href="https://github.com/EmbraceUU" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div><main class="main"><div class="container content-article page-toc theme-classic"><div class="toc" id="toc-auto">
+            <div class="toc-title">Contents</div>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><div class="header-post">
+        <div class="post-title">
+
+            <div class="post-all-meta">
+            <div class="breadcrumbs">
+    <a href="/">Home </a>/ <a href="/categories/database/">database </a>/ <a href="/"> Mysql 相关汇总 </a>
+</div>
+            <h1 class="single-title animated flipInX">Mysql 相关汇总</h1><div class="post-meta">
+                <div class="post-meta-line"><span class="post-category">
+                                <a href="/categories/database/"><i class="far fa-folder fa-fw"></i>&nbsp;database</a>
+                            </span>&nbsp;&nbsp;&nbsp;&nbsp;<i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time class="timeago" datetime="2019-03-05">2019-03-05</time>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;706 words
+                    &nbsp;&nbsp;&nbsp;&nbsp;<i class="far fa-clock fa-fw"></i>&nbsp;4 minutes</div>
+            </div>
+        </div>
+
+
+    </div>
+
+    </div>
+
+        <article class="single toc-start">
+
+        <div class="content-block content-block-first content-block-position">
+
+        <div class="post"><div class="image-theme-classic">
+                <img src="/db-mysql-syntax/featured-image.jpg" style="width: 100%">
+            </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#mysql">MySql</a>
+      <ul>
+        <li><a href="#登录"><strong>登录</strong></a></li>
+        <li><a href="#执行sql文件"><strong>执行SQL文件</strong></a></li>
+        <li><a href="#定向输出到文件"><strong>定向输出到文件</strong></a></li>
+        <li><a href="#插入更新"><strong>插入更新</strong></a></li>
+        <li><a href="#时间函数"><strong>时间函数</strong></a></li>
+        <li><a href="#ibd文件"><strong>ibd文件</strong></a></li>
+        <li><a href="#转换数据库"><strong>转换数据库</strong></a></li>
+        <li><a href="#显示表"><strong>显示表</strong></a></li>
+        <li><a href="#显示指定表的表结构"><strong>显示指定表的表结构</strong></a></li>
+        <li><a href="#格式化显示"><strong>格式化显示</strong></a></li>
+        <li><a href="#contos7-离线安装mysql"><strong>ContOS7 离线安装mysql</strong></a></li>
+        <li><a href="#备份表结构和数据"><strong>备份表结构和数据</strong></a></li>
+        <li><a href="#限制显示条数"><strong>限制显示条数</strong></a></li>
+        <li><a href="#generator"><strong>generator</strong></a></li>
+        <li><a href="#隔离级别"><strong>隔离级别</strong></a></li>
+        <li><a href="#replace-into-识别同一条记录"><strong>replace into 识别同一条记录</strong></a></li>
+        <li><a href="#设置默认值"><strong>设置默认值</strong></a></li>
+        <li><a href="#查看建表语句"><strong>查看建表语句</strong></a></li>
+        <li><a href="#更改线上数据库"><strong>更改线上数据库</strong></a></li>
+        <li><a href="#插入列"><strong>插入列</strong></a></li>
+        <li><a href="#修改列类型"><strong>修改列类型</strong></a></li>
+        <li><a href="#修改列默认值"><strong>修改列默认值</strong></a></li>
+        <li><a href="#增加唯一键索引"><strong>增加唯一键索引</strong></a></li>
+        <li><a href="#替换字符串"><strong>替换字符串</strong></a></li>
+        <li><a href="#bash执行mysql"><strong>bash执行mysql</strong></a></li>
+        <li><a href="#自增序列-auto_increment"><strong>自增序列 auto_increment</strong></a></li>
+        <li><a href="#联合索引"><strong>联合索引</strong></a></li>
+        <li><a href="#其他数据结构"><strong>其他数据结构</strong></a></li>
+        <li><a href="#btree"><strong>BTREE</strong></a></li>
+        <li><a href="#btree-1"><strong>B+TREE</strong></a></li>
+        <li><a href="#聚簇索引"><strong>聚簇索引</strong></a></li>
+        <li><a href="#存储引擎"><strong>存储引擎</strong></a></li>
+        <li><a href="#innodb"><strong>InnoDB</strong></a></li>
+        <li><a href="#索引策略"><strong>索引策略</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#oracle">Oracle</a>
+      <ul>
+        <li><a href="#查看表空间"><strong>查看表空间</strong></a></li>
+        <li><a href="#创建表空间"><strong>创建表空间</strong></a></li>
+        <li><a href="#删除表空间"><strong>删除表空间</strong></a></li>
+        <li><a href="#扩展表空间"><strong>扩展表空间</strong></a></li>
+        <li><a href="#计算100天之前的日期"><strong>计算100天之前的日期</strong></a></li>
+        <li><a href="#case-when"><strong>case when</strong></a></li>
+        <li><a href="#decode"><strong>decode</strong></a></li>
+        <li><a href="#instr"><strong>instr</strong></a></li>
+        <li><a href="#递归查询"><strong>递归查询</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#db2">DB2</a>
+      <ul>
+        <li><a href="#order-by-n"><strong>order by n</strong></a></li>
+        <li><a href="#days"><strong>days</strong></a></li>
+        <li><a href="#1-month--10-days"><strong>1 MONTH + 10 DAYS</strong></a></li>
+        <li><a href="#not-in"><strong>NOT IN</strong></a></li>
+        <li><a href="#in"><strong>IN</strong></a></li>
+        <li><a href="#重组表结构"><strong>重组表结构</strong></a></li>
+        <li><a href="#cast"><strong>CAST</strong></a></li>
+        <li><a href="#with-temptablename-as-"><strong>with &lt;temptablename&gt; as ()</strong></a></li>
+        <li><a href="#问题1"><strong>问题1</strong></a></li>
+        <li><a href="#leftarglengthrightarglength"><strong>LEFT(ARG,LENGTH)、RIGHT(ARG,LENGTH)</strong></a></li>
+        <li><a href="#nvlarg0"><strong>NVL(ARG,0)</strong></a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><span class="post-update">
+                    <b>Updated on 2021-01-29</b>
+                </span><h2 id="mysql">MySql</h2>
+<h3 id="登录"><strong>登录</strong></h3>
+<p>mysql -u username -p</p>
+<h3 id="执行sql文件"><strong>执行SQL文件</strong></h3>
+<p>source [path][filename]</p>
+<h3 id="定向输出到文件"><strong>定向输出到文件</strong></h3>
+<p>开启：pager cat &raquo; [path][filename]</p>
+<p>关闭：nopager</p>
+<h3 id="插入更新"><strong>插入更新</strong></h3>
+<p>insert &hellip; on duplicate key update &hellip; 当没有时insert，存在时update</p>
+<h3 id="时间函数"><strong>时间函数</strong></h3>
+<p>now() 返回SQL执行的时间 ，不是动态的当前时间</p>
+<h3 id="ibd文件"><strong>ibd文件</strong></h3>
+<p>mysql中的ibd文件是数据文件和索引文件，无法直接读取</p>
+<h3 id="转换数据库"><strong>转换数据库</strong></h3>
+<p>use &lt;dataBase&gt;</p>
+<h3 id="显示表"><strong>显示表</strong></h3>
+<p>show tables</p>
+<h3 id="显示指定表的表结构"><strong>显示指定表的表结构</strong></h3>
+<p>desc &lt;tablename&gt;</p>
+<h3 id="格式化显示"><strong>格式化显示</strong></h3>
+<p>\G</p>
+<h3 id="contos7-离线安装mysql"><strong>ContOS7 离线安装mysql</strong></h3>
+<p><a href="https://blog.csdn.net/u012802702/article/details/68070547" target="_blank" rel="noopener noreffer">安装mysql</a></p>
+<h3 id="备份表结构和数据"><strong>备份表结构和数据</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">mysqldump</span> <span class="o">-</span><span class="n">h</span><span class="err">\</span><span class="o">&lt;</span><span class="n">IP</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">u</span><span class="err">\</span><span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">p</span><span class="err">\</span><span class="o">&lt;</span><span class="n">pwd</span><span class="o">&gt;</span> <span class="err">\</span><span class="o">&lt;</span><span class="n">dbname</span><span class="o">&gt;</span> <span class="err">\</span><span class="o">&lt;</span><span class="n">tablename</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">trdSymbols</span><span class="p">.</span><span class="k">sql</span>
+<span class="c1">--where=&#34; exchange=&#39;aaa&#39;  过滤条件
+</span><span class="c1">--extented-insert=false  分成多条
+</span></code></pre></td></tr></table>
+</div>
+</div><h3 id="限制显示条数"><strong>限制显示条数</strong></h3>
+<p>select &hellip; limit n   显示n条</p>
+<p>select &hellip; limit m n   从m+1条后面显示n条</p>
+<h3 id="generator"><strong>generator</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="c1">--eclipse中生成：maven build ...  -&gt;  mybatis-generator:generate
+</span><span class="c1">--注释乱码问题：xml文件中&lt;commentGenerator&gt;里面添加&lt;property name=&#34;javaFileEncoding&#34; value=&#34;UTF-8&#34;/&gt;  -&gt;  exlipse.ini 文件，最末尾加上 -Dfile.encoding=UTF-8
+</span></code></pre></td></tr></table>
+</div>
+</div><h3 id="隔离级别"><strong>隔离级别</strong></h3>
+<p><a href="http://www.cnblogs.com/zhoujinyi/p/3437475.html" target="_blank" rel="noopener noreffer">隔离级别</a></p>
+<h3 id="replace-into-识别同一条记录"><strong>replace into 识别同一条记录</strong></h3>
+<p><a href="https://www.cnblogs.com/c-961900940/p/6197878.html" target="_blank" rel="noopener noreffer">URL</a></p>
+<h3 id="设置默认值"><strong>设置默认值</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">alter</span> <span class="k">table</span> <span class="n">trd_orders</span> <span class="k">alter</span> <span class="k">column</span> <span class="n">margin</span> <span class="k">drop</span> <span class="k">default</span><span class="p">;</span> <span class="p">(</span><span class="err">若本身存在默认值，则先删除</span><span class="p">)</span>
+<span class="k">alter</span> <span class="k">table</span> <span class="n">trd_orders</span> <span class="k">alter</span> <span class="k">column</span> <span class="n">margin</span> <span class="k">set</span> <span class="k">default</span> <span class="s1">&#39;&#39;</span><span class="p">;(</span><span class="err">若本身不存在则可以直接设定</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="查看建表语句"><strong>查看建表语句</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">show</span> <span class="k">create</span> <span class="k">table</span> <span class="k">table_name</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="更改线上数据库"><strong>更改线上数据库</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">begin</span><span class="p">;</span>
+
+<span class="k">select</span> <span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">from</span> <span class="n">trd_orders</span> <span class="k">where</span> <span class="n">exchange</span> <span class="o">&lt;&gt;</span> <span class="s1">&#39;BITMEX&#39;</span><span class="p">;</span>
+
+<span class="k">update</span> <span class="n">trd_orders</span> <span class="k">set</span> <span class="n">SecurityType</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">where</span> <span class="n">exchange</span> <span class="o">&lt;&gt;</span> <span class="s1">&#39;BITMEX&#39;</span><span class="p">;</span>
+
+<span class="k">commit</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="插入列"><strong>插入列</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">ALTER</span> <span class="k">table</span> <span class="o">`</span><span class="n">trd_symbols</span><span class="o">`</span> <span class="k">ADD</span> <span class="o">`</span><span class="n">position_currency</span><span class="o">`</span> <span class="nb">char</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="nb">CHARACTER</span> <span class="k">SET</span> <span class="n">utf8</span> <span class="k">COLLATE</span> <span class="n">utf8_unicode_ci</span> <span class="k">DEFAULT</span> <span class="k">NULL</span> <span class="k">COMMENT</span> <span class="s1">&#39;期货，持仓货币&#39;</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="修改列类型"><strong>修改列类型</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">ALTER</span> <span class="k">table</span> <span class="o">&lt;</span><span class="n">tablename</span><span class="o">&gt;</span> <span class="k">modify</span>  <span class="k">column</span> <span class="o">&lt;</span><span class="n">columnname</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="k">type</span><span class="o">&gt;</span> <span class="k">DEFAULT</span> <span class="k">NULL</span> <span class="k">COMMENT</span> <span class="o">&lt;</span><span class="k">comment</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="c1">-- 正常，能修改字段类型、类型长度、默认值、注释
+</span></code></pre></td></tr></table>
+</div>
+</div><h3 id="修改列默认值"><strong>修改列默认值</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">alter</span> <span class="k">table</span> <span class="err">表名</span> <span class="k">alter</span> <span class="k">column</span> <span class="err">字段名</span> <span class="k">drop</span> <span class="k">default</span><span class="p">;</span> <span class="p">(</span><span class="err">若本身存在默认值，则先删除</span><span class="p">)</span>
+<span class="k">alter</span> <span class="k">table</span> <span class="err">表名</span> <span class="k">alter</span> <span class="k">column</span> <span class="err">字段名</span> <span class="k">set</span> <span class="k">default</span> <span class="err">默认值</span><span class="p">;(</span><span class="err">若本身不存在则可以直接设定</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="增加唯一键索引"><strong>增加唯一键索引</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">alter</span> <span class="k">table</span> <span class="n">trd_orders</span> <span class="k">add</span> <span class="k">UNIQUE</span> <span class="k">index</span> <span class="o">`</span><span class="n">un_cl_order_id</span><span class="o">`</span> <span class="p">(</span><span class="o">`</span><span class="n">cl_ord_id</span><span class="o">`</span><span class="p">,</span><span class="o">`</span><span class="n">account_id</span><span class="o">`</span><span class="p">)</span> <span class="k">USING</span> <span class="n">HASH</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="替换字符串"><strong>替换字符串</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">replace</span><span class="p">(</span><span class="k">object</span><span class="p">,</span> <span class="k">search</span><span class="p">,</span><span class="k">replace</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="bash执行mysql"><strong>bash执行mysql</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="c1">-- 通过EOF
+</span><span class="c1"></span>
+<span class="n">mysql</span> <span class="o">-</span><span class="n">h10</span><span class="p">.</span><span class="mi">35</span><span class="p">.</span><span class="mi">174</span><span class="p">.</span><span class="mi">248</span> <span class="o">-</span><span class="n">uroot</span> <span class="o">-</span><span class="n">pnextfintech</span><span class="o">@</span><span class="mi">2018</span> <span class="n">tradingcenter</span> <span class="o">&lt;&lt;</span> <span class="n">EOF</span>
+  
+  <span class="n">use</span> <span class="n">tradingcenter</span>
+  
+  <span class="k">source</span> <span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">symbolJob</span><span class="o">/</span><span class="k">sql</span><span class="o">/</span><span class="n">bitmex</span><span class="p">.</span><span class="k">sql</span><span class="p">;</span>
+  
+  <span class="n">exit</span>
+
+<span class="n">EOF</span>
+
+<span class="c1">-- 通过 -e
+</span><span class="c1"></span>
+<span class="n">mysql</span> <span class="o">-</span><span class="n">h</span><span class="o">&lt;</span><span class="n">ip</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">u</span><span class="o">&lt;</span><span class="n">username</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">p</span><span class="o">&lt;</span><span class="n">password</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">dbname</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">e</span> <span class="s2">&#34;sql语句&#34;</span> <span class="o">&gt;&gt;</span> <span class="o">&lt;</span><span class="n">path</span><span class="o">&gt;&lt;</span><span class="n">filename</span><span class="o">&gt;</span>
+
+<span class="n">mysql</span> <span class="o">-</span><span class="n">h10</span><span class="p">.</span><span class="mi">35</span><span class="p">.</span><span class="mi">174</span><span class="p">.</span><span class="mi">248</span> <span class="o">-</span><span class="n">uroot</span> <span class="o">-</span><span class="n">pnextfintech</span><span class="o">@</span><span class="mi">2018</span> <span class="n">tradingcenter</span> <span class="o">-</span><span class="n">e</span> <span class="s2">&#34;select count(*) from trd_orders where strategy_id = &#39;410eacec-34f7-11e9-afbc-00ff38c49b16&#39; and created_at &gt; &#39;2019-02-25 12:00&#39; and created_at &lt; &#39;2019-02-26 12:00&#39;\G&#34;</span> <span class="o">&gt;&gt;</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">sqlite</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="自增序列-auto_increment"><strong>自增序列 auto_increment</strong></h3>
+<p>可以在表的基本信息中查看</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">information_schema</span><span class="p">.</span><span class="n">tables</span> <span class="k">WHERE</span> <span class="k">table_name</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">tableName</span><span class="o">&gt;</span> <span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>如果为AUTO_INCREMENT字段明确指定了一个数值，则会出现两种情况</p>
+<ol>
+<li>
+<p>如果插入的值与已有的编号重复，则会出现出 错信息，因为AUTO_INCREMENT数据列的值必须是唯一的</p>
+</li>
+<li>
+<p>如果插入的值大于已编号的值，则会把该插入到数据列中，并使在下一个编号将从这个新值开始递增</p>
+</li>
+</ol>
+<h3 id="联合索引"><strong>联合索引</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="c1">--复合索引 &lt;emp_no, title, from_date&gt;
+</span><span class="c1"></span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="k">table</span> <span class="k">where</span> <span class="n">emp_no</span> <span class="o">=</span> <span class="s1">&#39;1&#39;</span> <span class="k">and</span> <span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;aaa&#39;</span> <span class="k">and</span> <span class="n">from_date</span> <span class="o">=</span> <span class="s1">&#39;1990&#39;</span> <span class="p">;</span>   <span class="c1">--全值匹配
+</span><span class="c1"></span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="k">table</span> <span class="k">where</span> <span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;aaa&#39;</span><span class="p">;</span>   <span class="c1">--不遵循最左前缀, 不明中索引
+</span><span class="c1"></span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="k">table</span> <span class="k">where</span> <span class="n">emp_no</span> <span class="o">&gt;</span> <span class="s1">&#39;1&#39;</span><span class="p">;</span>  <span class="c1">--命中索引, 范围查找.
+</span><span class="c1"></span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="k">table</span> <span class="k">where</span> <span class="n">emp_no</span> <span class="o">&gt;</span> <span class="s1">&#39;1&#39;</span> <span class="k">and</span> <span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;aaa&#39;</span><span class="p">;</span>  <span class="c1">--emp_no命中索引, 但是范围查找, title不能走索引.
+</span><span class="c1"></span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="k">table</span> <span class="k">where</span> <span class="n">emp_no</span> <span class="o">&gt;</span> <span class="s1">&#39;1&#39;</span> <span class="k">order</span> <span class="k">by</span> <span class="n">title</span><span class="p">;</span>    <span class="c1">--emp_no命中索引, 同样title不能走索引;
+</span></code></pre></td></tr></table>
+</div>
+</div><h3 id="其他数据结构"><strong>其他数据结构</strong></h3>
+<p>二叉树作为索引有可能会出现单边增长的情况.  O(log2n)</p>
+<p>红黑树会自平衡, 不会出现单边增长的情况. JDK1.8 的 hashmap 是用的红黑树. 数据量大的时候, 深度不可控.</p>
+<p>HASH 如果是定位到某一行,通过 hash 算法计算出地址,是很快, 不满足范围查找.</p>
+<h3 id="btree"><strong>BTREE</strong></h3>
+<ol>
+<li>
+<p>度(Degree)是每个节点存储数据的最大个数</p>
+</li>
+<li>
+<p>叶子节点具有相同的深度</p>
+</li>
+<li>
+<p>叶子阶段的指针为空</p>
+</li>
+<li>
+<p>叶子节点的数据从左到右顺序排列</p>
+</li>
+</ol>
+<p>每个节点内的顺序查找实在内存中查找, 几乎可以忽略不计</p>
+<p>Degree 可以设计为磁盘一次I/O读取的数据数</p>
+<p>BTREE 的每个节点中除了存储键值, 还有data数据, 但是如果一行的col太多, data也会很大, 也不适合.  所以引入了BTREE的变种 B+TREE.</p>
+<h3 id="btree-1"><strong>B+TREE</strong></h3>
+<ol>
+<li>
+<p>非叶子节点不存储data, 之存储key , 在容量和表大小确定的情况下, 可以增大Degree, 减少深度, 也就减少 I/O 次数.</p>
+</li>
+<li>
+<p>B+ TREE的Degree一般会在100以上, h一般在3-5之间.</p>
+</li>
+<li>
+<p>叶子节点增加了顺序访问指针, 提高范围查找性能. 不用返回上层,减少了I/O操作.</p>
+</li>
+</ol>
+<p><strong>预读</strong>: 磁盘在一次 I/O 中, 会把要读取的数据相邻的局部数据一起存入内存, 并且是页的整倍数(4K). BTREE的一个节点的大小一般一会设置为4K.新建节点的时候会直接申请一页的内存, 使得一个节点在物理上也存储在一个页里面.</p>
+<h3 id="聚簇索引"><strong>聚簇索引</strong></h3>
+<ol>
+<li>
+<p>叶子节点中将索引键值和data存放在一起.</p>
+</li>
+<li>
+<p>会自动选择为主键.</p>
+</li>
+<li>
+<p>非主键索引不是聚簇索引</p>
+</li>
+</ol>
+<h3 id="存储引擎"><strong>存储引擎</strong></h3>
+<ol>
+<li>是表级别</li>
+</ol>
+<h3 id="innodb"><strong>InnoDB</strong></h3>
+<ol>
+<li>
+<p>主键索引和非主键索引的存储结构不一样</p>
+</li>
+<li>
+<p>数据文件本身就是索引文件, 主键聚簇索引, 内存不能全部存储一个索引文件, 所以会产生I/O, B+TREE结构可以减少I/O次数.</p>
+</li>
+<li>
+<p>Secondary key 不是聚簇索引, 但是叶子节点会存储Primary key</p>
+</li>
+<li>
+<p>主键推荐是整型的自增序列, 因为InnoDB的存储结构, 是B+ TREE的索引文件, 自增整型检索速度比UUID要快, 并且影响二级索引的大小</p>
+</li>
+</ol>
+<h3 id="索引策略"><strong>索引策略</strong></h3>
+<ol>
+<li>
+<p>索引必须是独立的列, 不能用表达式或者函数的入参.</p>
+</li>
+<li>
+<p>遵循最左前缀原则.</p>
+</li>
+<li>
+<p>复合索引中, 范围查找影响索引.比如like和in还有&gt;&lt;这种.</p>
+</li>
+</ol>
+<h2 id="oracle">Oracle</h2>
+<h3 id="查看表空间"><strong>查看表空间</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">select</span> <span class="n">tablespace_name</span><span class="p">,</span> <span class="n">file_id</span><span class="p">,</span> <span class="n">file_name</span><span class="p">,</span><span class="n">round</span><span class="p">(</span><span class="n">bytes</span><span class="o">/</span><span class="p">(</span><span class="mi">1024</span><span class="o">*</span><span class="mi">1024</span><span class="p">),</span><span class="mi">0</span><span class="p">)</span> <span class="n">total_space</span> <span class="k">from</span> <span class="n">dba_data_files</span> <span class="k">order</span> <span class="k">by</span> <span class="n">tablespace_name</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="创建表空间"><strong>创建表空间</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">create</span> <span class="n">tablespace</span> <span class="n">hussar2</span> <span class="n">datafile</span> <span class="s1">&#39;G:\hussar01.DBF&#39;</span> <span class="k">size</span> <span class="mi">500</span><span class="n">M</span> <span class="n">autoextend</span> <span class="k">on</span> <span class="k">next</span> <span class="mi">100</span><span class="n">M</span> <span class="n">maxsize</span> <span class="n">unlimited</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="删除表空间"><strong>删除表空间</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">DROP</span> <span class="n">TABLESPACE</span> <span class="n">hussar2</span> <span class="k">INCLUDING</span> <span class="n">CONTENTS</span> <span class="k">AND</span> <span class="n">DATAFILES</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="扩展表空间"><strong>扩展表空间</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">ALTER</span> <span class="n">TABLESPACE</span> <span class="n">hussar2</span> <span class="k">add</span> <span class="n">DATAFILE</span> <span class="s1">&#39;G:\hussar02.DBF&#39;</span> <span class="k">size</span> <span class="mi">500</span><span class="n">M</span> <span class="n">AUTOEXTEND</span> <span class="k">ON</span> <span class="k">NEXT</span> <span class="mi">100</span><span class="n">M</span> <span class="n">MAXSIZE</span> <span class="n">unlimited</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="计算100天之前的日期"><strong>计算100天之前的日期</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">select</span> <span class="n">to_date</span><span class="p">(</span><span class="s1">&#39;2017-06-01&#39;</span><span class="p">,</span> <span class="s1">&#39;yyyy-mm-dd&#39;</span><span class="p">)</span> <span class="o">-</span> <span class="mi">100</span> <span class="k">as</span> <span class="n">time</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="case-when"><strong>case when</strong></h3>
+<p>在检索列中的case when列，不能在where条件中直接用，可以用with as临时表将其提出来。</p>
+<h3 id="decode"><strong>decode</strong></h3>
+<p>decode(条件,值1,返回值1,值2,返回值2,&hellip;值n,返回值n,缺省值)，相当于IF语句，用值和条件对比，替换成返回值。</p>
+<h3 id="instr"><strong>instr</strong></h3>
+<p>instr（源字符串 , 目标字符串 ,开始位置,第几次出现）</p>
+<h3 id="递归查询"><strong>递归查询</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="c1">--树节点及其子节点
+</span><span class="c1"></span>
+<span class="k">select</span>  <span class="o">&lt;</span><span class="err">检索列</span><span class="o">&gt;</span>
+  <span class="k">from</span>  <span class="o">&lt;</span><span class="k">table</span><span class="o">&gt;</span> <span class="k">where</span> <span class="o">&lt;</span><span class="n">condition</span><span class="o">&gt;</span>
+  <span class="k">START</span> <span class="k">WITH</span>  <span class="o">&lt;</span><span class="n">root</span><span class="o">&gt;</span>
+<span class="k">CONNECT</span> <span class="k">BY</span> <span class="o">&lt;</span><span class="k">connect</span> <span class="n">condition</span><span class="o">&gt;</span>
+  <span class="k">order</span> <span class="k">by</span> <span class="o">&lt;</span><span class="n">sort</span><span class="o">&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>简单说来是将一个树状结构存储在一张表里，比如一个表中存在两个字段:code，parent_code，那么通过表示每一条记录的parent是谁，就可以形成一个树状结构，用上述语法的查询可以取得这棵树的所有记录，其中:</p>
+<ol>
+<li>
+<p>条件1 是根结点的限定语句，当然可以放宽限定条件，以取得多个根结点，实际就是多棵树。</p>
+</li>
+<li>
+<p>条件2 是连接条件，其中用PRIOR表示上一条记录，比如 CONNECT BY PRIOR code = parent_code；就是说上一条记录的code 是本条记录的parent_code，即本记录的父亲是上一条记录。</p>
+</li>
+<li>
+<p>条件3 是过滤条件，用于对返回的所有记录进行过滤。</p>
+</li>
+</ol>
+<h2 id="db2">DB2</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">locate</span><span class="p">(</span><span class="n">arg1</span><span class="p">,</span><span class="n">arg2</span><span class="p">,</span><span class="o">&lt;</span><span class="n">pos</span><span class="o">&gt;</span><span class="p">)</span>
+
+<span class="c1">-- 查找arg2中第一次出现arg1的位置，指定pos，则从arg2的pos处开始找arg1第一次出现的位置
+</span><span class="c1">-- 0:未找到arg1
+</span><span class="c1">-- 1:在第一个
+</span></code></pre></td></tr></table>
+</div>
+</div><h3 id="order-by-n"><strong>order by n</strong></h3>
+<p>按照第n个栏位排序</p>
+<h3 id="days"><strong>days</strong></h3>
+<p>比较两个日期的大小，用days()可以做比较，</p>
+<h3 id="1-month--10-days"><strong>1 MONTH + 10 DAYS</strong></h3>
+<p>下个月的今天的十天以后，可以直接在日期后面加上。</p>
+<h3 id="not-in"><strong>NOT IN</strong></h3>
+<p>对于在某个范围内的，用 in (select&hellip;) ，如果是他的余集，可以用 NOT IN (select &hellip;)，即不在这个范围内的结果集。</p>
+<h3 id="in"><strong>IN</strong></h3>
+<p>当用到in的时候，不得不说到从前面向后面传ID字符串来直接放在in里面，但是不能直接在字符串后面拼接“，”或者下一个ID，应该这样：id_hbzl = id_hbzl +&quot;','&quot;+ ress[&lsquo;id&rsquo;];然后在后台接受的时候，也要用'&lsquo;单引号包起来。</p>
+<h3 id="重组表结构"><strong>重组表结构</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">call</span> <span class="n">admin_cmd</span><span class="p">(</span><span class="s1">&#39;reorg table ENVIR.T_ATTACHFILE_SERVICE_XKZ_HB2&#39;</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="cast"><strong>CAST</strong></h3>
+<p>是一个转换格式的函数，具体用法为：cast(el as type);</p>
+<h3 id="with-temptablename-as-"><strong>with &lt;temptablename&gt; as ()</strong></h3>
+<p>将要查询的内容组成一个临时表，在SQL中后面的select,update,delete中用到。</p>
+<p>可以重复利用，尤其像UNION ALL这种查询中，可以将重复的的查询提出来。</p>
+<p>有时候，会需要一些聚合函数会碰到group by分组的情况，如果一味的left join会使得其他的表格查的很不方便。</p>
+<p>后面可以定义多个临时表，用逗号分开，最后一个不用。</p>
+<h3 id="问题1"><strong>问题1</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="c1">--库中查出两个用逗号连载一块的字符串id，要显示成汉字value，但是字典表中是一对一的。
+</span><span class="c1"></span><span class="k">SELECT</span>   <span class="p">(</span> <span class="k">SELECT</span>  
+  <span class="k">REPLACE</span><span class="p">(</span><span class="k">REPLACE</span><span class="p">(</span><span class="n">XML2CLOB</span><span class="p">(</span><span class="n">XMLAGG</span><span class="p">(</span><span class="n">XMLELEMENT</span><span class="p">(</span><span class="n">NAME</span> <span class="n">A</span><span class="p">,</span> <span class="n">REMARK</span><span class="o">||</span><span class="s1">&#39;,&#39;</span><span class="p">))),</span><span class="s1">&#39;&lt;A&gt;&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">),</span><span class="s1">&#39;&lt;/A&gt;&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="k">FROM</span>
+    <span class="n">PLATFORM</span><span class="p">.</span><span class="n">DICT</span>
+        <span class="k">WHERE</span>
+            <span class="n">PARENT_ID</span> <span class="k">IN</span>
+                <span class="p">(</span>
+                  <span class="k">SELECT</span>
+                <span class="n">ID</span>
+              <span class="k">FROM</span>
+            <span class="n">PLATFORM</span><span class="p">.</span><span class="n">DICT</span>
+          <span class="k">WHERE</span>
+        <span class="n">NAME</span> <span class="o">=</span> <span class="s1">&#39;FILTER_TYPE&#39;</span><span class="p">)</span>
+      <span class="k">AND</span> <span class="n">LOCATE</span><span class="p">(</span> <span class="s1">&#39;&#39;&#39;&#39;</span><span class="o">||</span><span class="n">NAME</span><span class="o">||</span><span class="s1">&#39;&#39;&#39;&#39;</span> <span class="p">,</span> <span class="s1">&#39;&#39;&#39;&#39;</span><span class="o">||</span><span class="k">REPLACE</span><span class="p">(</span><span class="n">GSCCJLX</span><span class="p">,</span><span class="s1">&#39;,&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;&#39;,&#39;&#39;&#39;</span><span class="p">)</span><span class="o">||</span><span class="s1">&#39;&#39;&#39;&#39;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="n">GSCCJLX</span>
+    <span class="k">FROM</span>
+  <span class="n">ENVIR</span><span class="p">.</span><span class="n">T_ZDL_UNIT_INDVAL</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="leftarglengthrightarglength"><strong>LEFT(ARG,LENGTH)、RIGHT(ARG,LENGTH)</strong></h3>
+<p>返回ARG字符串的左边、右边length长度的子字符串</p>
+<h3 id="nvlarg0"><strong>NVL(ARG,0)</strong></h3>
+<p>返回arg，如果arg为null，返回0</p></div>
+
+            <div class="post"><div class="post-info-share">
+    <span><a class="share-icon share-twitter" href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://embraceuu.github.io/db-mysql-syntax/" data-title="Mysql 相关汇总" data-hashtags="mysql,数据库"><i class="fab fa-twitter fa-fw"></i></a><a class="share-icon share-facebook" href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://embraceuu.github.io/db-mysql-syntax/" data-hashtag="mysql"><i class="fab fa-facebook-square fa-fw"></i></a><a class="share-icon share-line" href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://embraceuu.github.io/db-mysql-syntax/" data-title="Mysql 相关汇总"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a class="share-icon share-weibo" href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://embraceuu.github.io/db-mysql-syntax/" data-title="Mysql 相关汇总"><i class="fab fa-weibo fa-fw"></i></a></span>
+</div>
+<div class="footer-post-author"style="border-radius: 10px;border-bottom: solid 2px #ececec">
+    <div class="author-avatar"><a href="" target="_blank"><img alt="" src="" border="0"></a></div>
+    <div class="author-info">
+        <div class="name"><a href="" target="_blank"></a></div>
+        <div class="number-posts"></span></div>
+    </div>
+</div><div class="post-footer" id="post-footer"><div class="post-navigation"><div class="post-nav-box nav-box-prev">
+            <a class="nav-box" href="/db-mongo-explain/"><span class="nav-icon"><svg aria-hidden="true" data-prefix="fas" data-icon="chevron-circle-left" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M256 504C119 504 8 393 8 256S119 8 256 8s248 111 248 248-111 248-248 248zM142.1 273l135.5 135.5c9.4 9.4 24.6 9.4 33.9 0l17-17c9.4-9.4 9.4-24.6 0-33.9L226.9 256l101.6-101.6c9.4-9.4 9.4-24.6 0-33.9l-17-17c-9.4-9.4-24.6-9.4-33.9 0L142.1 239c-9.4 9.4-9.4 24.6 0 34z"></path></svg></span><div style="text-align: right;padding-left: 10px"><div class="nav-text-h">Next article</div><span class="nav-text">记一次Mongo的优化过程</span></div></a>
+        </div>
+        <div class="post-nav-box nav-box-next">
+            <a class="nav-box" href="/tools-git/"><div style="padding-right: 10px"><div class="nav-text-h">Next article</div><span class="nav-text">Git常用命令</span></div><span class="nav-icon"><svg aria-hidden="true" data-prefix="fas" data-icon="chevron-circle-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm113.9 231L234.4 103.5c-9.4-9.4-24.6-9.4-33.9 0l-17 17c-9.4 9.4-9.4 24.6 0 33.9L285.1 256 183.5 357.6c-9.4 9.4-9.4 24.6 0 33.9l17 17c9.4 9.4 24.6 9.4 33.9 0L369.9 273c9.4-9.4 9.4-24.6 0-34z"></path></svg></span></a>
+        </div></div></div>
+</div>
+        </div>
+    <div id="toc-final"></div>
+    </article><div class=" post-tags post-tags-toc "><a href="/tags/mysql/" class="tag">mysql</a><a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="tag">数据库</a></div></div></main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.79.1">Hugo</a> | Theme - <a href="https://ublogger.netlify.app/?utm_source=https://embraceuu.github.io/&utm_medium=footer&utm_campaign=config&utm_term=1.2.0" target="_blank" title="uBlogger 1.2.0"><i class="fas fa-pencil-alt fa-fw"></i> uBlogger</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span>2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span>&nbsp;|&nbsp;<span class="license">embraceu</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><script src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script>window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":10},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.en","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"algolia"}};</script><script src="/js/theme.min.js"></script><script src="/js/jquery-3.5.1.min.js"></script></body>
+</html>
